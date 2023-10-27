@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,
+#_next {
+  background-color: #301F46 !important;
+  font-family: "Kanit", sans-serif;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
