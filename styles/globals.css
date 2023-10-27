@@ -5,10 +5,16 @@
 @tailwind utilities;
 
 body,
-#_next {
-  background-color: #301F46 !important;
+#__next {
+  background-color: #301f46 !important;
   font-family: "Kanit", sans-serif;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  color: white !important;
+  font-weight: 300 !important;
+}
+
+.text-main {
+  color: #a5278f !important;
 }
