@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 export default function TermAndCondition({ nextPage }) {
   return (
@@ -87,8 +88,8 @@ export default function TermAndCondition({ nextPage }) {
       </Box>
 
       <Box className="flex justify-center">
-        <Button sx={buttonStyle} className="m-auto" onClick={nextPage}>
-          Next
+        <Button sx={buttonStyle} onClick={nextPage}>
+          NEXT <NavigateNextIcon />
         </Button>
       </Box>
     </Box>

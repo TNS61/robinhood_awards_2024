@@ -6,15 +6,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import next from "next";
 import Image from "next/image";
 import React from "react";
 
-export default function Register({
+export default function EditProfile({
   handleChange = () => {},
   user,
   prevPage = () => {},
   handleUploadProfile = () => {},
   registerNow = () => {},
+  nextPage = () => {},
 }) {
   return (
     <Box className="mt-10">
@@ -131,25 +133,7 @@ export default function Register({
           required
         />
 
-        <Box className="mt-5 w-full flex flex-col gap-5 justify-center">
-          <Button
-            type="submit"
-            sx={{
-              backgroundColor: "white !important",
-              borderRadius: "100px !important",
-              color: "#A5278F !important",
-              fontSize: "1.3rem !important",
-              borderWidth: "1px 1px 0.4rem 1px !important",
-              borderColor: "#A5278F !important",
-              borderStyle: "solid !important",
-              width: "fit-content !important",
-              px: "2rem !important",
-              m: "auto !important",
-            }}
-            className="normal-case font-bold"
-          >
-            Register Now !
-          </Button>
+        <Box className="mt-5 w-full flex flex-row gap-5 justify-center">
           <Button
             sx={{
               backgroundColor: "white !important",
@@ -167,6 +151,24 @@ export default function Register({
             onClick={prevPage}
           >
             Back
+          </Button>
+          <Button
+            onClick={nextPage}
+            sx={{
+              backgroundColor: "white !important",
+              borderRadius: "100px !important",
+              color: "#A5278F !important",
+              fontSize: "1.3rem !important",
+              borderWidth: "1px 1px 0.4rem 1px !important",
+              borderColor: "#A5278F !important",
+              borderStyle: "solid !important",
+              width: "fit-content !important",
+              px: "2rem !important",
+              m: "auto !important",
+            }}
+            className="normal-case font-bold"
+          >
+            Next
           </Button>
         </Box>
       </Box>

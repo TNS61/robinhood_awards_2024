@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // basePath: "/app/2023/robinhood_awards_2024",
+  // basePath: "/app/2023/robinhood_awards",
 
   env: {
-    API_BASE: "https://www.gforcesolution.com/app/2023/robinhood_awards_2024/api",
+    API_BASE: "https://www.gforcesolution.com/app/2023/robinhood_awards/api",
   },
   reactStrictMode: true,
   trailingSlash: true,
@@ -15,7 +15,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "gforcesolution.com",
         port: "",
-        pathname: "robinhood_awards_2024/**",
+        pathname: "robinhood_awards/**",
       },
     ],
   },

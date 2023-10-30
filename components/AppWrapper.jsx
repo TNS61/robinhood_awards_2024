@@ -28,8 +28,8 @@ export default function AppWrapper({ children, page }) {
           }`}
         />
 
-        <Container maxWidth="sm" className="absolute top-0 left-0 pb-10">
-          <Header />
+        <Container maxWidth="sm" className="absolute top-0 left-[50%] translate-x-[-50%] pb-10">
+          <Header  page={page}/>
           {children}
         </Container>
       </Container>

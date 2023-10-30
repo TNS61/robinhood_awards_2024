@@ -18,8 +18,9 @@ export const inputStyle = {
     // padding: "0rem 1rem",
   },
   "& .MuiInputBase-input": {
-    fontSize: "1.3rem",
+    fontSize: "1rem",
     padding: "0.5rem 1rem",
     color: "#A5278F !important",
+    borderRadius: "0px 100px 100px 0px !important",
   },
 };

@@ -10,7 +10,13 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export default function Rewards({ user, handleChange }) {
+export default function Rewards({
+  user,
+  handleChange,
+  nextPage,
+  page,
+  prevPage,
+}) {
   return (
     <Box className="py-5">
       <Box>
@@ -45,12 +51,12 @@ export default function Rewards({ user, handleChange }) {
               key={index}
               sx={{
                 backgroundColor: `${
-                  user.reward === item.value
+                  parseInt(user.reward) === item.value
                     ? "#A5278F !important"
                     : "white !important"
                 }`,
                 color: `${
-                  user.reward === item.value
+                  parseInt(user.reward) === item.value
                     ? "white !important"
                     : "#A5278F !important"
                 }`,
@@ -75,8 +81,46 @@ export default function Rewards({ user, handleChange }) {
           ))}
         </Box>
 
-        <Box className="mt-5 flex justify-center">
-          <Button sx={buttonStyle}>Next</Button>
+        <Box className="mt-5 w-full flex flex-row gap-5 justify-center">
+          {page == 9 && (
+            <Button
+              sx={{
+                backgroundColor: "white !important",
+                borderRadius: "100px !important",
+                color: "#A5278F !important",
+                fontSize: "1.3rem !important",
+                borderWidth: "1px 1px 0.4rem 1px !important",
+                borderColor: "#A5278F !important",
+                borderStyle: "solid !important",
+                width: "fit-content !important",
+                px: "2rem !important",
+                m: "auto !important",
+              }}
+              className="normal-case font-bold"
+              onClick={prevPage}
+            >
+              Back
+            </Button>
+          )}
+
+          <Button
+            onClick={nextPage}
+            sx={{
+              backgroundColor: "white !important",
+              borderRadius: "100px !important",
+              color: "#A5278F !important",
+              fontSize: "1.3rem !important",
+              borderWidth: "1px 1px 0.4rem 1px !important",
+              borderColor: "#A5278F !important",
+              borderStyle: "solid !important",
+              width: "fit-content !important",
+              px: "2rem !important",
+              m: "auto !important",
+            }}
+            className="normal-case font-bold"
+          >
+            Next
+          </Button>
         </Box>
       </Box>
     </Box>

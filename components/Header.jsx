@@ -3,7 +3,8 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
-export default function Header() {
+export default function Header({ page }) {
+  console.log(page);
   return (
     <Box className="pb-2 pt-5 ">
       <Image
@@ -13,7 +14,26 @@ export default function Header() {
         alt="logo"
         className="w-24 m-auto"
       />
-      <Typography sx={{fontSize:"1.8rem"}} className="tracking-widest text-white text-center">Awards 2024</Typography>
+      {/* {page != 4 || page != 5 ? (
+        <Typography
+          sx={{ fontSize: "1.8rem" }}
+          className="tracking-widest text-white text-center"
+        >
+          Awards 2024
+        </Typography>
+      ) : (
+        <></>
+      )} */}
+      {page == 4 || page == 5 ? (
+        <></>
+      ) : (
+        <Typography
+          sx={{ fontSize: "1.8rem" }}
+          className="tracking-widest text-white text-center"
+        >
+          Awards 2024
+        </Typography>
+      )}
     </Box>
   );
 }
