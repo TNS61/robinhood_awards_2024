@@ -1,3 +1,4 @@
+import { LOGO } from "@/assets";
 import { inputStyle } from "@/utils/inputStyle";
 import {
   Box,
@@ -30,9 +31,9 @@ export default function Register({
           />
         </Box>
         <TextField
-          id="name"
-          name="name"
-          value={user.name}
+          id="shopName"
+          name="shopName"
+          value={user.shopName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -46,7 +47,7 @@ export default function Register({
                   },
                 }}
               >
-                Name :
+                ชื่อร้านค้า :
               </InputAdornment>
             ),
           }}
@@ -72,7 +73,54 @@ export default function Register({
                   },
                 }}
               >
-                Member Code :
+                รหัสร้านค้า :
+              </InputAdornment>
+            ),
+          }}
+          required
+        />
+
+        <TextField
+          id="firstName"
+          name="firstName"
+          value={user.firstName}
+          onChange={handleChange}
+          sx={inputStyle}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment
+                position="start"
+                sx={{
+                  "& .MuiTypography-body1": {
+                    fontSize: "1rem",
+                    color: "#A5278F",
+                  },
+                }}
+              >
+                ชื่อ :
+              </InputAdornment>
+            ),
+          }}
+          required
+        />
+        <TextField
+          id="lastName"
+          name="lastName"
+          value={user.lastName}
+          onChange={handleChange}
+          sx={inputStyle}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment
+                position="start"
+                sx={{
+                  "& .MuiTypography-body1": {
+                    fontSize: "1rem",
+                    color: "#A5278F",
+                  },
+                }}
+              >
+                นามสกุล :
               </InputAdornment>
             ),
           }}
@@ -97,7 +145,7 @@ export default function Register({
                   },
                 }}
               >
-                Tel :
+                เบอร์โทร :
               </InputAdornment>
             ),
           }}
@@ -105,6 +153,33 @@ export default function Register({
             maxLength: 10,
           }}
           required
+        />
+
+        <TextField
+          id="telSpare"
+          name="telSpare"
+          value={user.telSpare}
+          onChange={handleChange}
+          sx={inputStyle}
+          type="tel"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment
+                position="start"
+                sx={{
+                  "& .MuiTypography-body1": {
+                    fontSize: "1rem",
+                    color: "#A5278F",
+                  },
+                }}
+              >
+                เบอร์โทรสำรอง :
+              </InputAdornment>
+            ),
+          }}
+          inputProps={{
+            maxLength: 10,
+          }}
         />
         <TextField
           id="email"
@@ -124,12 +199,39 @@ export default function Register({
                   },
                 }}
               >
-                Email :
+                อีเมล :
               </InputAdornment>
             ),
           }}
           required
         />
+        <Box className="w-full">
+          {/* <Typography className="">โซเชียลมีเดีย</Typography> */}
+          <TextField
+            fullWidth
+            id="socialMedia"
+            name="socialMedia"
+            value={user.socialMedia}
+            onChange={handleChange}
+            sx={{
+              borderRadius: "1rem",
+              backgroundColor: "white !important",
+              border: "0.3rem solid #A5278F !important",
+              color: "#A5278F !important",
+              "& .MuiOutlinedInput-root": {
+                border: "0rem !important",
+                color: "#A5278F !important",
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "0rem !important",
+              },
+            }}
+            type="text"
+            multiline
+            rows={5}
+            placeholder="โซเชียลมีเดีย"
+          />
+        </Box>
 
         <Box className="mt-5 w-full flex flex-col gap-5 justify-center">
           <Button
@@ -195,7 +297,33 @@ const ProfileUpload = ({ data, handleUploadProfile }) => {
   return (
     <>
       <label className="flex w-fit m-auto " htmlFor="profile">
-        <Box className="h-40 w-40 bg-white mx-auto rounded-full border-4 border-[#A5278F]  flex justify-center items-center">
+        {data.profile ? (
+          <Box className="h-40 w-40 bg-white mx-auto rounded-full border-4 border-[#A5278F]  flex justify-center items-center">
+            <Image
+              src={data.profile}
+              width={512}
+              height={512}
+              alt="profile"
+              className="w-full h-full object-cover rounded-full"
+            />
+          </Box>
+        ) : (
+          <Box className="flex flex-col gap-3">
+            <Box className="h-40 w-40 bg-[#2E2C2D] mx-auto rounded-full border-4 border-white  flex justify-center items-center p-5">
+              <Image
+                src={LOGO.src}
+                width={512}
+                height={512}
+                alt="profile"
+                className="w-full h-full object-contain"
+              />
+            </Box>
+            <Typography className="text-white text-sm text-center  ">
+              อัพโหลดรูปโปรไฟล์
+            </Typography>
+          </Box>
+        )}
+        {/* <Box className="h-40 w-40 bg-white mx-auto rounded-full border-4 border-[#A5278F]  flex justify-center items-center">
           {data.profile ? (
             <Image
               src={data.profile}
@@ -205,11 +333,18 @@ const ProfileUpload = ({ data, handleUploadProfile }) => {
               className="w-full h-full object-cover rounded-full"
             />
           ) : (
-            <Typography className="text-main text-sm text-center ">
+            <Typography className="text-main text-sm text-center  ">
               Upload Profile Picture
+              <Image
+                src={LOGO.src}
+                width={512}
+                height={512}
+                alt="profile"
+                className="w-full h-full object-cover rounded-full "
+              />
             </Typography>
           )}
-        </Box>
+        </Box> */}
       </label>
 
       <input

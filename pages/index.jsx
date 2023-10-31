@@ -7,7 +7,7 @@ import Rewards from "@/components/frontend/Rewards";
 import Rules from "@/components/frontend/Rules";
 import Success from "@/components/frontend/Success";
 import TermAndCondition from "@/components/frontend/TermAndCondition";
-import Works from "@/components/frontend/Works";
+import Works from "@/components/frontend/Works_bk";
 import EditProfile from "@/components/frontend/editProfile";
 import { Edit } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
@@ -16,13 +16,17 @@ import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const initUser = {
-    name: "",
+    shopName: "",
+    firstName: "",
+    lastName: "",
     memberCode: "",
     tel: "",
+    telSpare: "",
     email: "",
+    socialMedia: "",
     profile: "",
     profileFile: null,
-    reward: null,
+    reward: [],
     file: [],
     joinReason: "",
   };
@@ -31,7 +35,7 @@ export default function Home() {
 
   const [user, setUser] = useState(initUser);
   const [signIn, setSignIn] = useState(initSignIn);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(5);
 
   const nextPage = () => {
     setPage(page + 1);
@@ -165,13 +169,13 @@ export default function Home() {
             {/* วัน เวลา สถานที่จัดงาน */}
             <Box className="flex flex-col gap-1">
               <Typography className="text-center text-white font-light">
-                23 Jan 2024
+                23 มกราคม 2567
               </Typography>
               <Typography className="text-center text-white font-light">
                 14.00 - 16.00
               </Typography>
               <Typography className="text-center text-white font-light">
-                @Samyan Mitrtown
+                @สามย่ายมิททาวน์
               </Typography>
             </Box>
             <Login
@@ -184,17 +188,17 @@ export default function Home() {
         );
       case 1:
         return (
-          <Box className="px-8">
+          <Box className="px-2">
             {/* วัน เวลา สถานที่จัดงาน */}
             <Box className="flex flex-col gap-1">
               <Typography className="text-center text-white font-light">
-                23 Jan 2024
+                23 มกราคม 2567
               </Typography>
               <Typography className="text-center text-white font-light">
                 14.00 - 16.00
               </Typography>
               <Typography className="text-center text-white font-light">
-                @Samyan Mitrtown
+                @สามย่ายมิททาวน์
               </Typography>
             </Box>
             <Register
@@ -215,7 +219,7 @@ export default function Home() {
         );
       case 3:
         return (
-          <Box className="px-8">
+          <Box className="px-3">
             <Rewards
               user={user}
               handleChange={handleChange}
