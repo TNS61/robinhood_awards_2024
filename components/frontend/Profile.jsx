@@ -1,3 +1,4 @@
+import { rewardData } from "@/utils/rewardsData";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
@@ -61,15 +62,17 @@ export default function Profile({ user, nextPage }) {
         <Box className="flex flex-col gap-3">
           <Box className="grid grid-cols-5">
             <Box className="col-span-2">
-              <Typography>Name : </Typography>
+              <Typography>ชื่อร้านค้า : </Typography>
             </Box>
             <Box className="col-span-3">
-              <Typography className="font-light">{user.name || ""}</Typography>
+              <Typography className="font-light">
+                {user.shopName || ""}
+              </Typography>
             </Box>
           </Box>
           <Box className="grid grid-cols-5">
             <Box className="col-span-2">
-              <Typography>Member Code : </Typography>
+              <Typography>รหัสร้านค้า : </Typography>
             </Box>
             <Box className="col-span-3">
               <Typography className="font-light">
@@ -79,31 +82,75 @@ export default function Profile({ user, nextPage }) {
           </Box>
           <Box className="grid grid-cols-5">
             <Box className="col-span-2">
-              <Typography>Tel : </Typography>
+              <Typography>ชื่อ : </Typography>
             </Box>
             <Box className="col-span-3">
               {" "}
-              <Typography className="font-light">{user.tel || ""}</Typography>
+              <Typography className="font-light">
+                {user.firstName || ""}
+              </Typography>
             </Box>
           </Box>
           <Box className="grid grid-cols-5">
             <Box className="col-span-2">
-              <Typography>Email : </Typography>
+              <Typography>นามสกุล : </Typography>
+            </Box>
+            <Box className="col-span-3">
+              {" "}
+              <Typography className="font-light">
+                {user.lastName || ""}
+              </Typography>
+            </Box>
+          </Box>
+          <Box className="grid grid-cols-5">
+            <Box className="col-span-2">
+              <Typography>อีเมล : </Typography>
             </Box>
             <Box className="col-span-3">
               <Typography className="font-light">{user.email || ""}</Typography>
             </Box>
           </Box>
           <Box className="grid grid-cols-5">
-            <Box className="col-span-2">
+            <Box className="col-span-5">
               <Typography>ประเภทของกลุ่มรางวัล : </Typography>
             </Box>
-            <Box className="col-span-3">
+            <Box className="col-span-5">
+              {user.reward.length > 0 && (
+                <>
+                  {user.reward.map((item, index) => (
+                    <Box key={index}>
+                      <Awards data={item} />
+                      {/* <Typography className="font-light">{rewardsData.find((item)=>) }</Typography> */}
+                    </Box>
+                  ))}
+                </>
+              )}
+            </Box>
+          </Box>
+          <Divider
+            sx={{
+              backgroundColor: "white",
+              height: "2px",
+              width: "100%",
+            }}
+          />
+          <Box className="grid grid-cols-5">
+            <Box className="col-span-5">
+              <Typography>ช่องทางโซเชียลมีเดีย </Typography>
+            </Box>
+            <Box className="col-span-5">
               <Typography className="font-light">
-                {user.reward || ""}
+                {user.socialMedia || ""}
               </Typography>
             </Box>
           </Box>
+          <Divider
+            sx={{
+              backgroundColor: "white",
+              height: "2px",
+              width: "100%",
+            }}
+          />
           <Box>
             <Typography>เหตุผลในการเข้าร่วมประกวด</Typography>
             <Typography className="font-light">
@@ -118,13 +165,63 @@ export default function Profile({ user, nextPage }) {
             }}
           />
           <Box className="flex flex-col gap-3">
-            <Typography>ภาพหรือคลิปแนะนำร้าน</Typography>
-            <Box className="flex flex-col gap-3">
-              {user.file.map((item, index) => (
+            <Typography>ภาพ</Typography>
+            <Box className="grid grid-cols-2 gap-3">
+              {user.image1Url && (
+                <PhotoView src={user.image1Url}>
+                  <Image
+                    src={user.image1Url}
+                    width={512}
+                    height={512}
+                    alt="image1Url"
+                    className="w-full h-28 sm:h-48 object-cover rounded-xl"
+                  />
+                </PhotoView>
+              )}
+              {user.image2Url && (
+                <PhotoView src={user.image2Url}>
+                  <Image
+                    src={user.image2Url}
+                    width={512}
+                    height={512}
+                    alt="image2Url"
+                    className="w-full h-28 sm:h-48 object-cover rounded-xl"
+                  />
+                </PhotoView>
+              )}
+              {user.image3Url && (
+                <PhotoView src={user.image3Url}>
+                  <Image
+                    src={user.image3Url}
+                    width={512}
+                    height={512}
+                    alt="image3Url"
+                    className="w-full h-28 sm:h-48 object-cover rounded-xl"
+                  />
+                </PhotoView>
+              )}
+              {/* {user.file.map((item, index) => (
                 <Box key={index}>{checkFile(item)}</Box>
-              ))}
+              ))} */}
             </Box>
           </Box>
+          <Box className="flex flex-col gap-3">
+            <Typography>คลิปแนะนำร้าน</Typography>
+            {user.videoUrl && (
+              <video
+                src={user.videoUrl}
+                width={512}
+                height={512}
+                alt="videoUrl"
+                className="w-full h-50 object-cover rounded-xl"
+                muted
+                controls
+                playsInline
+                autoPlay
+              />
+            )}
+          </Box>
+          
         </Box>
         <Box className="flex justify-center">
           <Button
@@ -151,3 +248,12 @@ export default function Profile({ user, nextPage }) {
     </PhotoProvider>
   );
 }
+
+const Awards = ({ data }) => {
+  const [rewards, setRewards] = React.useState(null);
+
+  React.useEffect(() => {
+    setRewards(rewardData.find((item) => item.value === data));
+  }, []);
+  return <>{rewards && <Typography>{rewards.name || ""}</Typography>}</>;
+};

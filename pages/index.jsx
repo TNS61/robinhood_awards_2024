@@ -7,12 +7,14 @@ import Rewards from "@/components/frontend/Rewards";
 import Rules from "@/components/frontend/Rules";
 import Success from "@/components/frontend/Success";
 import TermAndCondition from "@/components/frontend/TermAndCondition";
-import Works from "@/components/frontend/Works_bk";
+import Welcome from "@/components/frontend/Welcome";
+import Works from "@/components/frontend/Works";
 import EditProfile from "@/components/frontend/editProfile";
 import { Edit } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Home() {
   const initUser = {
@@ -27,15 +29,18 @@ export default function Home() {
     profile: "",
     profileFile: null,
     reward: [],
-    file: [],
     joinReason: "",
+    image1Url: "",
+    image2Url: "",
+    image3Url: "",
+    videoUrl: "",
   };
 
   const initSignIn = { memberCode: "", tel: "" };
 
   const [user, setUser] = useState(initUser);
   const [signIn, setSignIn] = useState(initSignIn);
-  const [page, setPage] = useState(5);
+  const [page, setPage] = useState(0);
 
   const nextPage = () => {
     setPage(page + 1);
@@ -43,6 +48,10 @@ export default function Home() {
 
   const prevPage = () => {
     setPage(page - 1);
+  };
+
+  const nextPageByPage = (page) => {
+    setPage(page);
   };
 
   const handleUploadProfile = (e) => {
@@ -75,7 +84,7 @@ export default function Home() {
     console.log(res.data.data);
     setSignIn(res.data.data);
     setUser(res.data.data);
-    setPage(7);
+    setPage(8);
   };
   const signInUser = async () => {
     const res = await axios.post(process.env.API_BASE + "/signin", user);
@@ -84,15 +93,12 @@ export default function Home() {
     setUser(res.data.data);
   };
 
-  const createUser = async () => {
+  const updateUser = async () => {
     let tempUser = user;
 
     if (user.profileFile) {
       const formData = new FormData();
       formData.append("file", user.profileFile);
-
-      // console.log(formData);
-      // console.log(user.profileFile);
       const res = await axios.post(
         process.env.API_BASE + "/upload/" + user.memberCode,
         formData,
@@ -107,47 +113,199 @@ export default function Home() {
       tempUser.profile = res.data.data.url;
     }
 
-    if (user.file.length > 0) {
-      let tempFiles = [];
-      for (let i = 0; i < user.file.length; i++) {
-        const formData = new FormData();
-        formData.append("file", user.file[i].file);
-        const res = await axios.post(
-          process.env.API_BASE + "/upload/" + user.memberCode,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        if (res.data.status == "error") return;
-
-        tempFiles.push({
-          file: res.data.data.url,
-          type: user.file[i].file.type,
-        });
-      }
-      tempUser.file = tempFiles;
+    if (user.image1File) {
+      const formData = new FormData();
+      formData.append("file", user.image1File);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.image1Url = res.data.data.url;
     }
+
+    if (user.image2File) {
+      const formData = new FormData();
+      formData.append("file", user.image2File);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.image2Url = res.data.data.url;
+    }
+
+    if (user.image3File) {
+      const formData = new FormData();
+      formData.append("file", user.image3File);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.image3Url = res.data.data.url;
+    }
+
+    if (user.videoFile) {
+      const formData = new FormData();
+      formData.append("file", user.videoFile);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.videoUrl = res.data.data.url;
+    }
+
+    console.log(tempUser);
+
+    const res = await axios.post(process.env.API_BASE + "/update", tempUser);
+    console.log(res.data);
+    if (res.data.status == "error") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: "<a href>Why do I have this issue?</a>",
+      });
+      return;
+    }
+    Swal.fire({
+      icon: "success",
+      title: "บันทึกข้อมูลสำเร็จ",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      nextPageByPage(8);
+    });
+  };
+
+  const createUser = async () => {
+    let tempUser = user;
+
+    if (user.profileFile) {
+      const formData = new FormData();
+      formData.append("file", user.profileFile);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.profile = res.data.data.url;
+    }
+
+    if (user.image1File) {
+      const formData = new FormData();
+      formData.append("file", user.image1File);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.image1Url = res.data.data.url;
+    }
+
+    if (user.image2File) {
+      const formData = new FormData();
+      formData.append("file", user.image2File);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.image2Url = res.data.data.url;
+    }
+
+    if (user.image3File) {
+      const formData = new FormData();
+      formData.append("file", user.image3File);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      // console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.image3Url = res.data.data.url;
+    }
+
+    if (user.videoFile) {
+      const formData = new FormData();
+      formData.append("file", user.videoFile);
+      const res = await axios.post(
+        process.env.API_BASE + "/upload/" + user.memberCode,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(res.data);
+      if (res.data.status == "error") return;
+      tempUser.videoUrl = res.data.data.url;
+    }
+
+    console.log(tempUser);
 
     const res = await axios.post(process.env.API_BASE + "/create", tempUser);
-    console.log(res.data.data);
-    if (res.data.status == "error") return;
-    tempUser.userId = res.data.data;
-
-    if (tempUser.file.length > 0) {
-      for (let i = 0; i < tempUser.file.length; i++) {
-        const res = await axios.post(process.env.API_BASE + "/createFile", {
-          userId: tempUser.userId,
-          url: tempUser.file[i].file,
-          type: tempUser.file[i].type,
-        });
-
-        if (res.data.status == "error") return;
-      }
-      nextPage();
+    console.log(res.data);
+    if (res.data.status == "error") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: "<a href>Why do I have this issue?</a>",
+      });
+      return;
     }
+    nextPage();
   };
 
   const previewProfile = () => {
@@ -165,42 +323,53 @@ export default function Home() {
     switch (page) {
       case 0:
         return (
-          <Box className="px-8">
+          <Box className="">
             {/* วัน เวลา สถานที่จัดงาน */}
-            <Box className="flex flex-col gap-1">
-              <Typography className="text-center text-white font-light">
+            <Box className="flex flex-col">
+              <Typography className="text-center text-white font-light  tracking-widest">
+                เวทีมอบรางวัลคนตัวเล็กที่ยิ่งใหญ่
+              </Typography>
+              <Typography
+                className="text-center text-white tracking-widest mt-3 mb-[-5px]"
+                sx={{
+                  fontSize: "1.5rem",
+                }}
+              >
                 23 มกราคม 2567
               </Typography>
-              <Typography className="text-center text-white font-light">
-                14.00 - 16.00
-              </Typography>
-              <Typography className="text-center text-white font-light">
-                @สามย่ายมิททาวน์
+              <Typography
+                className="text-center text-white tracking-widest  "
+                sx={{
+                  fontSize: "1.5rem",
+                }}
+              >
+                สถานที่ xxxxxxxx
               </Typography>
             </Box>
+            <Welcome nextPageByPage={nextPageByPage} />
+          </Box>
+        );
+      case 1:
+        return (
+          <Box className="px-8">
+            {/* วัน เวลา สถานที่จัดงาน */}
+            <Typography className="text-center text-white font-light  tracking-widest">
+              เวทีมอบรางวัลคนตัวเล็กที่ยิ่งใหญ่
+            </Typography>
             <Login
               handleChange={handleChange}
               user={user}
               submitData={submitData}
               nextPage={nextPage}
+              nextPageByPage={nextPageByPage}
             />
           </Box>
         );
-      case 1:
+      case 2:
         return (
           <Box className="px-2">
             {/* วัน เวลา สถานที่จัดงาน */}
-            <Box className="flex flex-col gap-1">
-              <Typography className="text-center text-white font-light">
-                23 มกราคม 2567
-              </Typography>
-              <Typography className="text-center text-white font-light">
-                14.00 - 16.00
-              </Typography>
-              <Typography className="text-center text-white font-light">
-                @สามย่ายมิททาวน์
-              </Typography>
-            </Box>
+
             <Register
               handleChange={handleChange}
               user={user}
@@ -208,16 +377,20 @@ export default function Home() {
               prevPage={prevPage}
               handleUploadProfile={handleUploadProfile}
               registerNow={registerNow}
+              nextPageByPage={nextPageByPage}
             />
           </Box>
         );
-      case 2:
+      case 3:
         return (
-          <Box className="px-8">
-            <TermAndCondition nextPage={nextPage} />
+          <Box className="px-2">
+            <TermAndCondition
+              nextPage={nextPage}
+              nextPageByPage={nextPageByPage}
+            />
           </Box>
         );
-      case 3:
+      case 4:
         return (
           <Box className="px-3">
             <Rewards
@@ -229,15 +402,15 @@ export default function Home() {
             />
           </Box>
         );
-      case 4:
+      case 5:
         return (
-          <Box className="px-8">
+          <Box className="px-3 pt-5">
             <Rules nextPage={nextPage} />
           </Box>
         );
-      case 5:
+      case 6:
         return (
-          <Box className="px-2">
+          <Box className="px-2 pb-10">
             <Works
               nextPage={nextPage}
               user={user}
@@ -246,21 +419,21 @@ export default function Home() {
             />
           </Box>
         );
-      case 6:
+      case 7:
         return (
           <Box className="px-2">
             <Success />
           </Box>
         );
-      case 7:
+      case 8:
         return (
-          <Box className="px-2">
+          <Box className="px-2 pb-10">
             <Profile user={user} nextPage={nextPage} />
           </Box>
         );
-      case 8:
+      case 9:
         return (
-          <Box className="px-2">
+          <Box className="px-2 pb-10">
             <EditProfile
               handleChange={handleChange}
               user={user}
@@ -271,9 +444,9 @@ export default function Home() {
             />
           </Box>
         );
-      case 9:
+      case 10:
         return (
-          <Box className="px-8">
+          <Box className="px-3 pb-10">
             <Rewards
               user={user}
               handleChange={handleChange}
@@ -283,14 +456,17 @@ export default function Home() {
             />
           </Box>
         );
-      case 10:
+      case 11:
         return (
-          <Box className="px-2">
+          <Box className="px-2 pb-10">
             <Works
               nextPage={nextPage}
               user={user}
               handleChange={handleChange}
               createUser={createUser}
+              page={page}
+              nextPageByPage={nextPageByPage}
+              updateUser={updateUser}
             />
           </Box>
         );
@@ -305,7 +481,7 @@ export default function Home() {
     console.log(user);
   }, [user]);
   useEffect(() => {
-    if (page == 7) {
+    if (page == 8) {
       signInUser();
     }
   }, [page]);

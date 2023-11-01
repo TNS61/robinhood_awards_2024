@@ -1,62 +1,37 @@
 export const rewardData = [
   {
-    name: "Awards 1",
+    name: "Best Create",
     value: 1,
+    description: "สูตรเด็ดความคิด พิชิตความอร่อย",
     detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
+      "รางวัลสำหรับร้านอาหารที่ครีเอตเมนูสุดสร้างสรรค์ มีความแตกต่างและโดดเด่นนอกเหนือจากเมนูในท้องตลาด",
   },
   {
-    name: "Awards 2",
+    name: "Best Packaging",
     value: 2,
+    description: "บรรจุภัณฑ์เก๋ สเน่ห์ล้นใจ",
     detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
+      "รางวัลสำหรับร้านอาหารที่ครีเอตเมนูสุดสร้างสรรค์ มีความแตกต่างและโดดเด่นนอกเหนือจากเมนูในท้องตลาด",
   },
   {
-    name: "Awards 3",
+    name: "Best Home Kitchen",
     value: 3,
+    description: "เมนูห่วงใย จากใจครัวบ้าน",
     detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
+      "รางวัลสำหรับร้านอาหารที่ครีเอตเมนูสุดสร้างสรรค์ มีความแตกต่างและโดดเด่นนอกเหนือจากเมนูในท้องตลาด",
   },
   {
-    name: "Awards 4",
+    name: "Best Story",
     value: 4,
+    description: "สตอรี่ดี ที่มาประทับใจ",
     detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
+      "รางวัลสำหรับร้านอาหารที่ครีเอตเมนูสุดสร้างสรรค์ มีความแตกต่างและโดดเด่นนอกเหนือจากเมนูในท้องตลาด",
   },
   {
-    name: "Awards 5",
+    name: "Best Health",
     value: 5,
+    description: "มื้อที่ห่วงใย ใส่ใจสุขภาพ",
     detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
-  },
-  {
-    name: "Awards 6",
-    value: 6,
-    detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
-  },
-  {
-    name: "Awards 7",
-    value: 7,
-    detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
-  },
-  {
-    name: "Awards 8",
-    value: 8,
-    detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
-  },
-  {
-    name: "Awards 9",
-    value: 9,
-    detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
-  },
-  {
-    name: "Awards 10",
-    value: 10,
-    detail:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro deserunt ullam ducimus iure est minima molestias dicta nulla unde tempore.",
+      "รางวัลสำหรับร้านอาหารที่ครีเอตเมนูสุดสร้างสรรค์ มีความแตกต่างและโดดเด่นนอกเหนือจากเมนูในท้องตลาด",
   },
 ];

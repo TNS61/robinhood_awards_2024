@@ -2,8 +2,10 @@ import { buttonStyle } from "@/utils/buttonStyle";
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { BTN_NEXT } from "@/assets";
+import Image from "next/image";
 
-export default function Rules({nextPage}) {
+export default function Rules({ nextPage }) {
   return (
     <Box className="flex flex-col gap-3">
       <Typography variant="h4">Best Trendy</Typography>
@@ -31,9 +33,15 @@ export default function Rules({nextPage}) {
         <li>แนบสูตรเด็ดวิธ</li>
       </ul>
 
-      <Box className="flex justify-center">
-        <Button sx={buttonStyle} onClick={nextPage}>
-          NEXT <NavigateNextIcon />
+      <Box className="flex justify-center mt-10">
+        <Button className="p-0" onClick={nextPage}>
+          <Image
+            src={BTN_NEXT.src}
+            width={256}
+            height={128}
+            alt="login"
+            className="w-[60%] sm:w-[40%] h-auto"
+          />
         </Button>
       </Box>
     </Box>

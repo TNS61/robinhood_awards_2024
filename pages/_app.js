@@ -13,13 +13,7 @@ export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Head>
-        <title>Robinhood Awards 2024</title>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <meta name="theme-color" content="#301F46"></meta>
-        {/*##  icon ##  */}
-        <link rel="icon" href={FAVICON.src} />
-      </Head>
+
       <Component {...pageProps} />
     </ThemeProvider>
   );

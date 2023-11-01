@@ -32,9 +32,9 @@ export default function EditProfile({
           />
         </Box>
         <TextField
-          id="name"
-          name="name"
-          value={user.name}
+          id="shopName"
+          name="shopName"
+          value={user.shopName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -48,13 +48,13 @@ export default function EditProfile({
                   },
                 }}
               >
-                Name :
+                ชื่อร้านค้า :
               </InputAdornment>
             ),
           }}
-          inputProps={{
-            maxLength: 10,
-          }}
+          // inputProps={{
+          //   maxLength: 10,
+          // }}
           required
         />
         <TextField
@@ -74,7 +74,54 @@ export default function EditProfile({
                   },
                 }}
               >
-                Member Code :
+                รหัสร้านค้า :
+              </InputAdornment>
+            ),
+          }}
+          required
+        />
+
+        <TextField
+          id="firstName"
+          name="firstName"
+          value={user.firstName}
+          onChange={handleChange}
+          sx={inputStyle}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment
+                position="start"
+                sx={{
+                  "& .MuiTypography-body1": {
+                    fontSize: "1rem",
+                    color: "#A5278F",
+                  },
+                }}
+              >
+                ชื่อ :
+              </InputAdornment>
+            ),
+          }}
+          required
+        />
+        <TextField
+          id="lastName"
+          name="lastName"
+          value={user.lastName}
+          onChange={handleChange}
+          sx={inputStyle}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment
+                position="start"
+                sx={{
+                  "& .MuiTypography-body1": {
+                    fontSize: "1rem",
+                    color: "#A5278F",
+                  },
+                }}
+              >
+                นามสกุล :
               </InputAdornment>
             ),
           }}
@@ -99,7 +146,7 @@ export default function EditProfile({
                   },
                 }}
               >
-                Tel :
+                เบอร์โทร :
               </InputAdornment>
             ),
           }}
@@ -107,6 +154,33 @@ export default function EditProfile({
             maxLength: 10,
           }}
           required
+        />
+
+        <TextField
+          id="telSpare"
+          name="telSpare"
+          value={user.telSpare}
+          onChange={handleChange}
+          sx={inputStyle}
+          type="tel"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment
+                position="start"
+                sx={{
+                  "& .MuiTypography-body1": {
+                    fontSize: "1rem",
+                    color: "#A5278F",
+                  },
+                }}
+              >
+                เบอร์โทรสำรอง :
+              </InputAdornment>
+            ),
+          }}
+          inputProps={{
+            maxLength: 10,
+          }}
         />
         <TextField
           id="email"
@@ -126,7 +200,7 @@ export default function EditProfile({
                   },
                 }}
               >
-                Email :
+                อีเมล :
               </InputAdornment>
             ),
           }}

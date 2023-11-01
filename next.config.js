@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // basePath: "/app/2023/robinhood_awards",
+  basePath: "/app/2023/robinhood_awards",
 
   env: {
     API_BASE: "https://www.gforcesolution.com/app/2023/robinhood_awards/api",

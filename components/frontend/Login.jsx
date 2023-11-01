@@ -1,13 +1,22 @@
+import { BTN_BACK, BTN_LOGIN } from "@/assets";
 import { inputStyle } from "@/utils/inputStyle";
 import { Box, Button, InputAdornment, TextField } from "@mui/material";
+import Image from "next/image";
 import React from "react";
 
-export default function Login({ handleChange, user, submitData, nextPage }) {
+export default function Login({
+  handleChange,
+  user,
+  submitData,
+  nextPage,
+  nextPageByPage,
+  
+}) {
   return (
     <Box className="mt-10">
       <Box
         component={"form"}
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-3"
         onSubmit={submitData}
       >
         <TextField
@@ -27,7 +36,7 @@ export default function Login({ handleChange, user, submitData, nextPage }) {
                   },
                 }}
               >
-                Member Code :
+                รหัสร้านค้า :
               </InputAdornment>
             ),
           }}
@@ -52,7 +61,7 @@ export default function Login({ handleChange, user, submitData, nextPage }) {
                   },
                 }}
               >
-                Tel :
+                เบอร์โทร :
               </InputAdornment>
             ),
           }}
@@ -61,42 +70,24 @@ export default function Login({ handleChange, user, submitData, nextPage }) {
           }}
           required
         />
-        <Box className="mt-5 w-full flex flex-col gap-5 justify-center">
-          <Button
-            type="submit"
-            sx={{
-              backgroundColor: "white !important",
-              borderRadius: "100px !important",
-              color: "#A5278F !important",
-              fontSize: "1.3rem !important",
-              borderWidth: "1px 1px 0.4rem 1px !important",
-              borderColor: "#A5278F !important",
-              borderStyle: "solid !important",
-              width: "fit-content !important",
-              px: "2rem !important",
-              m: "auto !important",
-            }}
-            className="normal-case font-bold"
-          >
-            Login
+        <Box className="mt-5 w-full flex flex-col gap-4 justify-center">
+          <Button type="submit" className="p-0">
+            <Image
+              src={BTN_LOGIN.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[70%] sm:w-[40%] h-auto"
+            />
           </Button>
-          <Button
-            sx={{
-              backgroundColor: "white !important",
-              borderRadius: "100px !important",
-              color: "#A5278F !important",
-              fontSize: "1.3rem !important",
-              borderWidth: "1px 1px 0.4rem 1px !important",
-              borderColor: "#A5278F !important",
-              borderStyle: "solid !important",
-              width: "fit-content !important",
-              px: "2rem !important",
-              m: "auto !important",
-            }}
-            className="normal-case font-bold"
-            onClick={nextPage}
-          >
-            Register
+          <Button className="p-0" onClick={() => nextPageByPage(0)}>
+            <Image
+              src={BTN_BACK.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[70%] sm:w-[40%] h-auto"
+            />
           </Button>
         </Box>
       </Box>

@@ -1,4 +1,4 @@
-import { LOGO } from "@/assets";
+import { BTN_BACK, BTN_LOGIN, BTN_NEXT, LOGO } from "@/assets";
 import { inputStyle } from "@/utils/inputStyle";
 import {
   Box,
@@ -16,9 +16,10 @@ export default function Register({
   prevPage = () => {},
   handleUploadProfile = () => {},
   registerNow = () => {},
+  nextPageByPage = () => {},
 }) {
   return (
-    <Box className="mt-10">
+    <Box className="pt-5 pb-10">
       <Box
         component={"form"}
         className="flex flex-col gap-5"
@@ -51,9 +52,9 @@ export default function Register({
               </InputAdornment>
             ),
           }}
-          inputProps={{
-            maxLength: 10,
-          }}
+          // inputProps={{
+          //   maxLength: 10,
+          // }}
           required
         />
         <TextField
@@ -234,41 +235,23 @@ export default function Register({
         </Box>
 
         <Box className="mt-5 w-full flex flex-col gap-5 justify-center">
-          <Button
-            type="submit"
-            sx={{
-              backgroundColor: "white !important",
-              borderRadius: "100px !important",
-              color: "#A5278F !important",
-              fontSize: "1.3rem !important",
-              borderWidth: "1px 1px 0.4rem 1px !important",
-              borderColor: "#A5278F !important",
-              borderStyle: "solid !important",
-              width: "fit-content !important",
-              px: "2rem !important",
-              m: "auto !important",
-            }}
-            className="normal-case font-bold"
-          >
-            Register Now !
+          <Button type="submit" className="p-0">
+            <Image
+              src={BTN_NEXT.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[60%] sm:w-[40%] h-auto"
+            />
           </Button>
-          <Button
-            sx={{
-              backgroundColor: "white !important",
-              borderRadius: "100px !important",
-              color: "#A5278F !important",
-              fontSize: "1.3rem !important",
-              borderWidth: "1px 1px 0.4rem 1px !important",
-              borderColor: "#A5278F !important",
-              borderStyle: "solid !important",
-              width: "fit-content !important",
-              px: "2rem !important",
-              m: "auto !important",
-            }}
-            className="normal-case font-bold"
-            onClick={prevPage}
-          >
-            Back
+          <Button className="p-0" onClick={() => nextPageByPage(0)}>
+            <Image
+              src={BTN_BACK.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[60%] sm:w-[40%] h-auto"
+            />
           </Button>
         </Box>
       </Box>
@@ -309,7 +292,7 @@ const ProfileUpload = ({ data, handleUploadProfile }) => {
           </Box>
         ) : (
           <Box className="flex flex-col gap-3">
-            <Box className="h-40 w-40 bg-[#2E2C2D] mx-auto rounded-full border-4 border-white  flex justify-center items-center p-5">
+            <Box className="h-40 w-40 bg-[#492E91] mx-auto rounded-full border-4 border-[#A5278F] flex justify-center items-center p-5">
               <Image
                 src={LOGO.src}
                 width={512}
@@ -323,28 +306,6 @@ const ProfileUpload = ({ data, handleUploadProfile }) => {
             </Typography>
           </Box>
         )}
-        {/* <Box className="h-40 w-40 bg-white mx-auto rounded-full border-4 border-[#A5278F]  flex justify-center items-center">
-          {data.profile ? (
-            <Image
-              src={data.profile}
-              width={512}
-              height={512}
-              alt="profile"
-              className="w-full h-full object-cover rounded-full"
-            />
-          ) : (
-            <Typography className="text-main text-sm text-center  ">
-              Upload Profile Picture
-              <Image
-                src={LOGO.src}
-                width={512}
-                height={512}
-                alt="profile"
-                className="w-full h-full object-cover rounded-full "
-              />
-            </Typography>
-          )}
-        </Box> */}
       </label>
 
       <input
