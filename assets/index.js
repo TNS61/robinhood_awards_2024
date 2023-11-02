@@ -7,6 +7,7 @@ import BTN_LOGIN from "./images/btn_login.png";
 import BTN_REGISTER from "./images/btn_register.png";
 import BTN_BACK from "./images/btn_back.png";
 import BTN_SAVE from "./images/btn_save.png";
+import BTN_BACKHOME from "./images/btn_backhome.png";
 
 import CONTACT from "./images/contact.png";
 import NOTE from "./images/note.png";
@@ -21,6 +22,9 @@ import RADIO_CHECKED from "./images/radio_checked.png";
 import AGREE from "./images/agree.png";
 import NOT_AGREE from "./images/not_agree.png";
 
+import SUCCESS from "./images/success.png";
+
+
 
 export {
   LOGO,
@@ -30,6 +34,7 @@ export {
   BTN_LOGIN,
   BTN_REGISTER,
   BTN_SAVE,
+  BTN_BACKHOME,
   CONTACT,
   NOTE,
   PIN_WHITE,
@@ -40,5 +45,6 @@ export {
   RADIO_CHECK,
   RADIO_CHECKED,
   AGREE,
-  NOT_AGREE
+  NOT_AGREE,
+  SUCCESS
 };

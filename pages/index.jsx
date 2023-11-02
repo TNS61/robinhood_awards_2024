@@ -10,11 +10,13 @@ import TermAndCondition from "@/components/frontend/TermAndCondition";
 import Welcome from "@/components/frontend/Welcome";
 import Works from "@/components/frontend/Works";
 import EditProfile from "@/components/frontend/editProfile";
+import ResultAward from "@/components/frontend/ResultAward";
 import { Edit } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import FormAward from "@/components/frontend/FormAward";
 
 export default function Home() {
   const initUser = {
@@ -40,7 +42,12 @@ export default function Home() {
 
   const [user, setUser] = useState(initUser);
   const [signIn, setSignIn] = useState(initSignIn);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(4);
+  const [selectAward, setSelectAward] = useState(null);
+
+  const handleSelectAward = (value) => {
+    setSelectAward(value);
+  };
 
   const nextPage = () => {
     setPage(page + 1);
@@ -72,6 +79,10 @@ export default function Home() {
     });
   };
 
+  const handleChangeAward = (value) => {
+    console.log(value);
+  };
+
   const registerNow = async (e) => {
     e.preventDefault();
     nextPage();
@@ -81,14 +92,14 @@ export default function Home() {
     e.preventDefault();
     console.log(user);
     const res = await axios.post(process.env.API_BASE + "/signin", user);
-    console.log(res.data.data);
+
     setSignIn(res.data.data);
     setUser(res.data.data);
     setPage(8);
   };
   const signInUser = async () => {
     const res = await axios.post(process.env.API_BASE + "/signin", user);
-    console.log(res.data.data);
+
     setSignIn(res.data.data);
     setUser(res.data.data);
   };
@@ -96,9 +107,9 @@ export default function Home() {
   const updateUser = async () => {
     let tempUser = user;
 
-    if (user.profileFile) {
+    if (user?.profileFile) {
       const formData = new FormData();
-      formData.append("file", user.profileFile);
+      formData.append("file", user?.profileFile);
       const res = await axios.post(
         process.env.API_BASE + "/upload/" + user.memberCode,
         formData,
@@ -207,9 +218,9 @@ export default function Home() {
   const createUser = async () => {
     let tempUser = user;
 
-    if (user.profileFile) {
+    if (user?.profileFile) {
       const formData = new FormData();
-      formData.append("file", user.profileFile);
+      formData.append("file", user?.profileFile);
       const res = await axios.post(
         process.env.API_BASE + "/upload/" + user.memberCode,
         formData,
@@ -309,8 +320,8 @@ export default function Home() {
   };
 
   const previewProfile = () => {
-    if (user.profileFile) {
-      let url = URL.createObjectURL(user.profileFile);
+    if (user?.profileFile) {
+      let url = URL.createObjectURL(user?.profileFile);
 
       setUser({
         ...user,
@@ -399,16 +410,48 @@ export default function Home() {
               nextPage={nextPage}
               page={page}
               prevPage={prevPage}
+              handleChangeAward={handleChangeAward}
             />
           </Box>
         );
       case 5:
         return (
-          <Box className="px-3 pt-5">
-            <Rules nextPage={nextPage} />
+          <Box className="px-3 py-10">
+            <ResultAward
+              user={user}
+              nextPage={nextPage}
+              page={page}
+              prevPage={prevPage}
+              selectAward={selectAward}
+              handleSelectAward={handleSelectAward}
+              nextPageByPage={nextPageByPage}
+              handleChange={handleChange}
+            />
           </Box>
         );
+
       case 6:
+        return (
+          <Box className="px-3 pt-5">
+            <Rules
+              nextPage={nextPage}
+              selectAward={selectAward}
+              prevPage={prevPage}
+            />
+          </Box>
+        );
+      // case 7:
+      //   return (
+      //     <Box className="px-3 pt-5">
+      //       <FormAward
+      //         user={user}
+      //         nextPage={nextPage}
+      //         page={page}
+      //         prevPage={prevPage}
+      //       />
+      //     </Box>
+      //   );
+      case 7:
         return (
           <Box className="px-2 pb-10">
             <Works
@@ -416,22 +459,24 @@ export default function Home() {
               user={user}
               handleChange={handleChange}
               createUser={createUser}
+              selectAward={selectAward}
+              nextPageByPage={nextPageByPage}
             />
           </Box>
         );
-      case 7:
+      case 8:
         return (
           <Box className="px-2">
-            <Success />
+            <Success nextPageByPage={nextPageByPage} />
           </Box>
         );
-      case 8:
+      case 9:
         return (
           <Box className="px-2 pb-10">
             <Profile user={user} nextPage={nextPage} />
           </Box>
         );
-      case 9:
+      case 10:
         return (
           <Box className="px-2 pb-10">
             <EditProfile
@@ -444,7 +489,7 @@ export default function Home() {
             />
           </Box>
         );
-      case 10:
+      case 11:
         return (
           <Box className="px-3 pb-10">
             <Rewards
@@ -456,7 +501,7 @@ export default function Home() {
             />
           </Box>
         );
-      case 11:
+      case 12:
         return (
           <Box className="px-2 pb-10">
             <Works
@@ -465,6 +510,7 @@ export default function Home() {
               handleChange={handleChange}
               createUser={createUser}
               page={page}
+              prevPage={prevPage}
               nextPageByPage={nextPageByPage}
               updateUser={updateUser}
             />
@@ -474,11 +520,19 @@ export default function Home() {
   };
 
   useEffect(() => {
-    previewProfile();
-  }, [user.profileFile]);
+    console.log(selectAward);
+  }, [selectAward]);
 
   useEffect(() => {
-    console.log(user);
+    previewProfile();
+  }, [user?.profileFile]);
+
+  useEffect(() => {
+    // check status input and upload file by award all //
+  }, [user?.reward]);
+
+  useEffect(() => {
+    console.log("user changed:", user);
   }, [user]);
   useEffect(() => {
     if (page == 8) {

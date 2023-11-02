@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 
 export default function Header({ page }) {
-  console.log(page);
   return (
     <Box className={`${page == 0 ? "pt-14" : page == 1 ? "pt-14" : "pt-5"}`}>
       <Image
@@ -27,11 +26,16 @@ export default function Header({ page }) {
       ) : (
         <></>
       )} */}
-      {page == 5 ? (
-        <></>
-      ) : (
+      {page <= 3 ? (
         <Typography
           sx={{ fontSize: "2.5rem" }}
+          className="tracking-widest text-white text-center uppercase font-bold mt-4"
+        >
+          Awards 2024
+        </Typography>
+      ) : (
+        <Typography
+          sx={{ fontSize: "2rem" }}
           className="tracking-widest text-white text-center uppercase font-bold mt-4"
         >
           Awards 2024

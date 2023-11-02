@@ -22,7 +22,7 @@ export default function Login({
         <TextField
           id="memberCode"
           name="memberCode"
-          value={user.memberCode}
+          value={user?.memberCode}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -46,7 +46,7 @@ export default function Login({
         <TextField
           id="tel"
           name="tel"
-          value={user.tel}
+          value={user?.tel}
           onChange={handleChange}
           sx={inputStyle}
           type="tel"

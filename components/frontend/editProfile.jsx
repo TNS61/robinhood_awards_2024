@@ -34,7 +34,7 @@ export default function EditProfile({
         <TextField
           id="shopName"
           name="shopName"
-          value={user.shopName}
+          value={user?.shopName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -60,7 +60,7 @@ export default function EditProfile({
         <TextField
           id="memberCode"
           name="memberCode"
-          value={user.memberCode}
+          value={user?.memberCode}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -84,7 +84,7 @@ export default function EditProfile({
         <TextField
           id="firstName"
           name="firstName"
-          value={user.firstName}
+          value={user?.firstName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -107,7 +107,7 @@ export default function EditProfile({
         <TextField
           id="lastName"
           name="lastName"
-          value={user.lastName}
+          value={user?.lastName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -131,7 +131,7 @@ export default function EditProfile({
         <TextField
           id="tel"
           name="tel"
-          value={user.tel}
+          value={user?.tel}
           onChange={handleChange}
           sx={inputStyle}
           type="tel"
@@ -159,7 +159,7 @@ export default function EditProfile({
         <TextField
           id="telSpare"
           name="telSpare"
-          value={user.telSpare}
+          value={user?.telSpare}
           onChange={handleChange}
           sx={inputStyle}
           type="tel"
@@ -185,7 +185,7 @@ export default function EditProfile({
         <TextField
           id="email"
           name="email"
-          value={user.email}
+          value={user?.email}
           onChange={handleChange}
           sx={inputStyle}
           type="email"

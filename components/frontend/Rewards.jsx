@@ -34,39 +34,56 @@ export default function Rewards({
   nextPage,
   page,
   prevPage,
+  handleChangeAward,
 }) {
   const [open, setOpen] = useState(null);
-  const [selectReward, setSelectReward] = useState(user.reward || []);
 
   const handleSelectReward = (value) => {
-    if (selectReward.includes(value)) {
-      setSelectReward(selectReward.filter((item) => item !== value));
-    } else {
-      if (user.reward.length >= 3) {
-        Swal.fire({
-          icon: "error",
-          // title: "กรุณาเลือกสิทธิประโยชน์ไม่เกิน 3 สิทธิ",
-          text: "กรุณาเลือกประเภทของรางวัลได้ไม่เกิน 3 ประเภท",
-          heightAuto: false,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        return;
-      }
+    let newReward = [];
 
-      setSelectReward([...selectReward, value]);
+    if (user?.reward?.find((item) => item?.awardId == value)) {
+      newReward = user?.reward?.filter((item) => item?.awardId != value);
     }
+
+    if (
+      user?.reward?.length >= 3 &&
+      !user?.reward?.find((item) => item?.awardId == value)
+    ) {
+      Swal.fire({
+        icon: "error",
+        text: "กรุณาเลือกประเภทของรางวัลได้ไม่เกิน 3 ประเภท",
+        heightAuto: false,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
+    if (!user?.reward?.find((item) => item?.awardId == value)) {
+      newReward = [
+        ...user?.reward,
+        {
+          awardId: value,
+          joinReason: "",
+          image1Url: "",
+          image2Url: "",
+          image3Url: "",
+          videoUrl: "",
+          image1File: null,
+          image2File: null,
+          image3File: null,
+          videoFile: null,
+        },
+      ];
+    }
+
+    let evt = { target: { name: "reward", value: newReward } };
+    handleChange(evt);
   };
 
   useEffect(() => {
-    console.log(selectReward);
-    handleChange({
-      target: {
-        name: "reward",
-        value: selectReward,
-      },
-    });
-  }, [selectReward]);
+    console.log(user.reward);
+  }, [user.reward]);
 
   return (
     <Box className="py-5">
@@ -146,7 +163,7 @@ const RewardsElement = ({ data, user, setOpen, open, handleSelectReward }) => {
   }, [open]);
 
   useEffect(() => {
-    const check = user?.reward.filter((item) => item === data.value);
+    const check = user?.reward.filter((item) => item.awardId === data.value);
     if (check.length > 0) {
       setChecked(true);
     } else {

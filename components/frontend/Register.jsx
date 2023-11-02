@@ -34,7 +34,7 @@ export default function Register({
         <TextField
           id="shopName"
           name="shopName"
-          value={user.shopName}
+          value={user?.shopName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -60,7 +60,7 @@ export default function Register({
         <TextField
           id="memberCode"
           name="memberCode"
-          value={user.memberCode}
+          value={user?.memberCode}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -84,7 +84,7 @@ export default function Register({
         <TextField
           id="firstName"
           name="firstName"
-          value={user.firstName}
+          value={user?.firstName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -107,7 +107,7 @@ export default function Register({
         <TextField
           id="lastName"
           name="lastName"
-          value={user.lastName}
+          value={user?.lastName}
           onChange={handleChange}
           sx={inputStyle}
           InputProps={{
@@ -131,7 +131,7 @@ export default function Register({
         <TextField
           id="tel"
           name="tel"
-          value={user.tel}
+          value={user?.tel}
           onChange={handleChange}
           sx={inputStyle}
           type="tel"
@@ -159,7 +159,7 @@ export default function Register({
         <TextField
           id="telSpare"
           name="telSpare"
-          value={user.telSpare}
+          value={user?.telSpare}
           onChange={handleChange}
           sx={inputStyle}
           type="tel"
@@ -185,7 +185,7 @@ export default function Register({
         <TextField
           id="email"
           name="email"
-          value={user.email}
+          value={user?.email}
           onChange={handleChange}
           sx={inputStyle}
           type="email"
@@ -212,7 +212,7 @@ export default function Register({
             fullWidth
             id="socialMedia"
             name="socialMedia"
-            value={user.socialMedia}
+            value={user?.socialMedia}
             onChange={handleChange}
             sx={{
               borderRadius: "1rem",
@@ -280,10 +280,10 @@ const ProfileUpload = ({ data, handleUploadProfile }) => {
   return (
     <>
       <label className="flex w-fit m-auto " htmlFor="profile">
-        {data.profile ? (
+        {data?.profile ? (
           <Box className="h-40 w-40 bg-white mx-auto rounded-full border-4 border-[#A5278F]  flex justify-center items-center">
             <Image
-              src={data.profile}
+              src={data?.profile}
               width={512}
               height={512}
               alt="profile"

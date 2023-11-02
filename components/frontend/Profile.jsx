@@ -7,13 +7,13 @@ import "react-photo-view/dist/react-photo-view.css";
 
 export default function Profile({ user, nextPage }) {
   const checkFile = (data) => {
-    const type = data.type.split("/")[0];
+    const type = data?.type.split("/")[0];
     console.log(data);
     if (type === "image") {
       return (
-        <PhotoView src={data.url}>
+        <PhotoView src={data?.url}>
           <Image
-            src={data.url}
+            src={data?.url}
             width={512}
             height={512}
             alt="profile"
@@ -24,7 +24,7 @@ export default function Profile({ user, nextPage }) {
     } else {
       return (
         <video
-          src={data.url}
+          src={data?.url}
           width={512}
           height={512}
           controls
@@ -42,10 +42,10 @@ export default function Profile({ user, nextPage }) {
         </Typography>
 
         <Box className="h-40 w-40 bg-white mx-auto rounded-full border-4 border-[#A5278F]  flex justify-center items-center">
-          {user.profile ? (
-            <PhotoView src={user.profile}>
+          {user?.profile ? (
+            <PhotoView src={user?.profile}>
               <Image
-                src={user.profile}
+                src={user?.profile}
                 width={512}
                 height={512}
                 alt="profile"
@@ -66,7 +66,7 @@ export default function Profile({ user, nextPage }) {
             </Box>
             <Box className="col-span-3">
               <Typography className="font-light">
-                {user.shopName || ""}
+                {user?.shopName || ""}
               </Typography>
             </Box>
           </Box>
@@ -76,7 +76,7 @@ export default function Profile({ user, nextPage }) {
             </Box>
             <Box className="col-span-3">
               <Typography className="font-light">
-                {user.memberCode || ""}
+                {user?.memberCode || ""}
               </Typography>
             </Box>
           </Box>
@@ -87,7 +87,7 @@ export default function Profile({ user, nextPage }) {
             <Box className="col-span-3">
               {" "}
               <Typography className="font-light">
-                {user.firstName || ""}
+                {user?.firstName || ""}
               </Typography>
             </Box>
           </Box>
@@ -98,7 +98,7 @@ export default function Profile({ user, nextPage }) {
             <Box className="col-span-3">
               {" "}
               <Typography className="font-light">
-                {user.lastName || ""}
+                {user?.lastName || ""}
               </Typography>
             </Box>
           </Box>
@@ -107,7 +107,7 @@ export default function Profile({ user, nextPage }) {
               <Typography>อีเมล : </Typography>
             </Box>
             <Box className="col-span-3">
-              <Typography className="font-light">{user.email || ""}</Typography>
+              <Typography className="font-light">{user?.email || ""}</Typography>
             </Box>
           </Box>
           <Box className="grid grid-cols-5">
@@ -115,9 +115,9 @@ export default function Profile({ user, nextPage }) {
               <Typography>ประเภทของกลุ่มรางวัล : </Typography>
             </Box>
             <Box className="col-span-5">
-              {user.reward.length > 0 && (
+              {user?.reward.length > 0 && (
                 <>
-                  {user.reward.map((item, index) => (
+                  {user?.reward.map((item, index) => (
                     <Box key={index}>
                       <Awards data={item} />
                       {/* <Typography className="font-light">{rewardsData.find((item)=>) }</Typography> */}
@@ -140,7 +140,7 @@ export default function Profile({ user, nextPage }) {
             </Box>
             <Box className="col-span-5">
               <Typography className="font-light">
-                {user.socialMedia || ""}
+                {user?.socialMedia || ""}
               </Typography>
             </Box>
           </Box>
@@ -154,7 +154,7 @@ export default function Profile({ user, nextPage }) {
           <Box>
             <Typography>เหตุผลในการเข้าร่วมประกวด</Typography>
             <Typography className="font-light">
-              {user.joinReason || ""}{" "}
+              {user?.joinReason || ""}{" "}
             </Typography>
           </Box>
           <Divider
@@ -167,10 +167,10 @@ export default function Profile({ user, nextPage }) {
           <Box className="flex flex-col gap-3">
             <Typography>ภาพ</Typography>
             <Box className="grid grid-cols-2 gap-3">
-              {user.image1Url && (
-                <PhotoView src={user.image1Url}>
+              {user?.image1Url && (
+                <PhotoView src={user?.image1Url}>
                   <Image
-                    src={user.image1Url}
+                    src={user?.image1Url}
                     width={512}
                     height={512}
                     alt="image1Url"
@@ -178,10 +178,10 @@ export default function Profile({ user, nextPage }) {
                   />
                 </PhotoView>
               )}
-              {user.image2Url && (
-                <PhotoView src={user.image2Url}>
+              {user?.image2Url && (
+                <PhotoView src={user?.image2Url}>
                   <Image
-                    src={user.image2Url}
+                    src={user?.image2Url}
                     width={512}
                     height={512}
                     alt="image2Url"
@@ -189,10 +189,10 @@ export default function Profile({ user, nextPage }) {
                   />
                 </PhotoView>
               )}
-              {user.image3Url && (
-                <PhotoView src={user.image3Url}>
+              {user?.image3Url && (
+                <PhotoView src={user?.image3Url}>
                   <Image
-                    src={user.image3Url}
+                    src={user?.image3Url}
                     width={512}
                     height={512}
                     alt="image3Url"
@@ -200,16 +200,16 @@ export default function Profile({ user, nextPage }) {
                   />
                 </PhotoView>
               )}
-              {/* {user.file.map((item, index) => (
+              {/* {user?.file.map((item, index) => (
                 <Box key={index}>{checkFile(item)}</Box>
               ))} */}
             </Box>
           </Box>
           <Box className="flex flex-col gap-3">
             <Typography>คลิปแนะนำร้าน</Typography>
-            {user.videoUrl && (
+            {user?.videoUrl && (
               <video
-                src={user.videoUrl}
+                src={user?.videoUrl}
                 width={512}
                 height={512}
                 alt="videoUrl"

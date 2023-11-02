@@ -15,7 +15,7 @@ export default function Welcome({ nextPageByPage }) {
       >
         ลงทะเบียนเข้าร่วมกิจกรรม
       </Typography>
-      <Box  className="py-5 flex flex-col gap-3 items-center">
+      <Box  className="py-5 flex flex-col gap-4 items-center">
         <Button className="p-0" onClick={() => nextPageByPage(2)}>
           <Image
             src={BTN_REGISTER.src}
