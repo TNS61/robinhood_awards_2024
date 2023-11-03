@@ -94,7 +94,7 @@ export default function ResultAward({
     <Box className="py-5">
       <Box>
         {user?.reward.length > 0 ? (
-          <Box className="flex flex-col gap-3">
+          <Box className="flex flex-col gap-5">
             {user?.reward.map((item, index) => (
               <RewardsElement
                 key={index}
@@ -111,7 +111,7 @@ export default function ResultAward({
           "กรุณาเลือกประเภทของรางวัล"
         )}
 
-        <Box className="mt-5 w-full flex flex-row gap-5 justify-center">
+        <Box className="mt-10 w-full flex flex-row gap-5 justify-center">
           {page == 9 && (
             <Button
               sx={{
@@ -133,9 +133,9 @@ export default function ResultAward({
             </Button>
           )}
 
-          <Button className="p-0" onClick={prevPage}>
+          <Button className="p-0" onClick={nextPage}>
             <Image
-              src={BTN_BACK.src}
+              src={BTN_NEXT.src}
               width={256}
               height={128}
               alt="login"
@@ -143,13 +143,13 @@ export default function ResultAward({
             />
           </Button>
         </Box>
-        <Image
+        {/* <Image
           src={NOTE.src}
           width={720}
           height={128}
           alt="note"
           className="w-full h-auto mt-3"
-        />
+        /> */}
       </Box>
     </Box>
   );
@@ -167,32 +167,31 @@ const RewardsElement = ({
   const [checked, setChecked] = useState(false);
   const [currentAward, setCurrentAward] = useState(null);
 
-  const handleChangeOpen = () => {
-    setExpanded(!expanded);
-    setOpen(data.awardId);
-  };
+  // const handleChangeOpen = () => {
+  //   setExpanded(!expanded);
+  //   setOpen(data.awardId);
+  // };
 
-  const handleChangeUser = (e) => {
-    const { name, value } = e.target;
+  // const handleChangeUser = (e) => {
+  //   const { name, value } = e.target;
 
-    let index = user.reward.indexOf(
-      user.reward.find((item) => item.awardId == data.awardId)
-    );
-    let currentData = { ...user.reward[index], [name]: value };
+  //   let index = user.reward.indexOf(
+  //     user.reward.find((item) => item.awardId == data.awardId)
+  //   );
+  //   let currentData = { ...user.reward[index], [name]: value };
 
-    let dataReward = [...user.reward];
-    dataReward[index] = currentData;
-    console.log(dataReward);
-    console.log(index);
-    handleChangeValue({
-      target: {
-        name: "reward",
-        value: dataReward,
-      },
-    });
-  };
+  //   let dataReward = [...user.reward];
+  //   dataReward[index] = currentData;
+  //   console.log(dataReward);
+  //   console.log(index);
+  //   handleChangeValue({
+  //     target: {
+  //       name: "reward",
+  //       value: dataReward,
+  //     },
+  //   });
+  // };
 
-  console.log(data);
   useEffect(() => {
     if (open === data.awardId) {
       setExpanded(true);
@@ -214,7 +213,7 @@ const RewardsElement = ({
         <Box className="flex flex-col gap-1">
           <Box className="flex flex-row justify-start items-center gap-3">
             <Button
-              onClick={handleChangeOpen}
+              // onClick={handleChangeOpen}
               className="flex flex-col items-start normal-case"
               sx={{
                 backgroundColor: "white !important",
@@ -235,7 +234,7 @@ const RewardsElement = ({
               </Typography>
             </Button>
           </Box>
-          <Accordion
+          {/* <Accordion
             expanded={expanded}
             onChange={handleChangeOpen}
             sx={{
@@ -368,188 +367,188 @@ const RewardsElement = ({
                 </Box>
               </Box>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
         </Box>
       )}
     </>
   );
 };
-const MediaInput = ({ data, onChange, type, index }) => {
-  const ref = useRef(null);
-  const [previewJoinReason, setPreviewJoinReason] = useState(null);
+// const MediaInput = ({ data, onChange, type, index }) => {
+//   const ref = useRef(null);
+//   const [previewJoinReason, setPreviewJoinReason] = useState(null);
 
-  const handleChangeFile = (e) => {
-    let event = {
-      target: {
-        name: `${type}${index != "4" ? index : ""}File`,
-        value: null,
-      },
-    };
+//   const handleChangeFile = (e) => {
+//     let event = {
+//       target: {
+//         name: `${type}${index != "4" ? index : ""}File`,
+//         value: null,
+//       },
+//     };
 
-    if (e.target.files.length == 0) {
-      onChange(event.target);
-    } else {
-      // check file size
-      if (e.target.files[0].size > 25000000) {
-        Swal.fire({
-          icon: "error",
-          title: "ขนาดไฟล์ใหญ่เกินไป",
-          text: "กรุณาอัพโหลดไฟล์ขนาดไม่เกิน 25MB",
-          confirmButtonText: "ตกลง",
-        });
-        return;
-      }
+//     if (e.target.files.length == 0) {
+//       onChange(event.target);
+//     } else {
+//       // check file size
+//       if (e.target.files[0].size > 25000000) {
+//         Swal.fire({
+//           icon: "error",
+//           title: "ขนาดไฟล์ใหญ่เกินไป",
+//           text: "กรุณาอัพโหลดไฟล์ขนาดไม่เกิน 25MB",
+//           confirmButtonText: "ตกลง",
+//         });
+//         return;
+//       }
 
-      onChange({
-        target: {
-          name: `${type}${index != "4" ? index : ""}File`,
-          value: e.target.files[0],
-        },
-      });
-    }
-  };
+//       onChange({
+//         target: {
+//           name: `${type}${index != "4" ? index : ""}File`,
+//           value: e.target.files[0],
+//         },
+//       });
+//     }
+//   };
 
-  const changeFile = () => {
-    ref.current.click();
-  };
+//   const changeFile = () => {
+//     ref.current.click();
+//   };
 
-  useEffect(() => {
-    if (!data) return;
-    if (index == 1) {
-      if (data?.image1File) {
-        const objectUrl = URL.createObjectURL(data?.image1File);
-        setPreviewJoinReason(objectUrl);
-      }
-      if (data.image1Url && !data.image1File) {
-        setPreviewJoinReason(data.image1Url);
-      }
-    }
-    if (index == 2) {
-      if (data?.image2File) {
-        const objectUrl = URL.createObjectURL(data?.image2File);
-        setPreviewJoinReason(objectUrl);
-      }
-      if (data.image2Url && !data.image2File) {
-        setPreviewJoinReason(data.image2Url);
-      }
-    }
-    if (index == 3) {
-      if (data?.image3File) {
-        const objectUrl = URL.createObjectURL(data?.image3File);
-        setPreviewJoinReason(objectUrl);
-      }
-      if (data.image3Url && !data.image3File) {
-        setPreviewJoinReason(data.image3Url);
-      }
-    }
-    if (index == 4) {
-      if (data?.videoFile) {
-        const objectUrl = URL.createObjectURL(data?.videoFile);
-        setPreviewJoinReason(objectUrl);
-      }
-      if (data.videoUrl && !data.videoFile) {
-        setPreviewJoinReason(data.videoUrl);
-      }
-    }
-  }, [
-    data?.image1File,
-    data?.image2File,
-    data?.image3File,
-    data?.videoFile,
+//   useEffect(() => {
+//     if (!data) return;
+//     if (index == 1) {
+//       if (data?.image1File) {
+//         const objectUrl = URL.createObjectURL(data?.image1File);
+//         setPreviewJoinReason(objectUrl);
+//       }
+//       if (data.image1Url && !data.image1File) {
+//         setPreviewJoinReason(data.image1Url);
+//       }
+//     }
+//     if (index == 2) {
+//       if (data?.image2File) {
+//         const objectUrl = URL.createObjectURL(data?.image2File);
+//         setPreviewJoinReason(objectUrl);
+//       }
+//       if (data.image2Url && !data.image2File) {
+//         setPreviewJoinReason(data.image2Url);
+//       }
+//     }
+//     if (index == 3) {
+//       if (data?.image3File) {
+//         const objectUrl = URL.createObjectURL(data?.image3File);
+//         setPreviewJoinReason(objectUrl);
+//       }
+//       if (data.image3Url && !data.image3File) {
+//         setPreviewJoinReason(data.image3Url);
+//       }
+//     }
+//     if (index == 4) {
+//       if (data?.videoFile) {
+//         const objectUrl = URL.createObjectURL(data?.videoFile);
+//         setPreviewJoinReason(objectUrl);
+//       }
+//       if (data.videoUrl && !data.videoFile) {
+//         setPreviewJoinReason(data.videoUrl);
+//       }
+//     }
+//   }, [
+//     data?.image1File,
+//     data?.image2File,
+//     data?.image3File,
+//     data?.videoFile,
 
-    data?.image1Url,
-    data?.image2Url,
-    data?.image3Url,
-    data?.videoUrl,
-  ]);
+//     data?.image1Url,
+//     data?.image2Url,
+//     data?.image3Url,
+//     data?.videoUrl,
+//   ]);
 
-  // useEffect(() => {
-  //   console.log(previewJoinReason);
-  // }, [previewJoinReason]);
+//   // useEffect(() => {
+//   //   console.log(previewJoinReason);
+//   // }, [previewJoinReason]);
 
-  return (
-    <Box
-      className={`${
-        index == 4 ? "h-32 sm:h-56" : "h-20 sm:h-44"
-      } bg-[#f0f0f0] w-full flex justify-center  p-0`}
-      // className="h-48 sm:h-44 bg-white w-full"
-      sx={{
-        borderRadius: "1rem",
-        // border: "0.3rem solid #A5278F",
-        color: "#A5278F",
-      }}
-    >
-      {previewJoinReason ? (
-        <>
-          {type == "image" ? (
-            <Image
-              src={previewJoinReason}
-              width={256}
-              height={256}
-              alt="Image"
-              className="w-full h-full object-cover rounded-xl"
-              onClick={() => {
-                changeFile();
-              }}
-            />
-          ) : (
-            <Box className="w-full relative">
-              <video
-                src={previewJoinReason}
-                className="w-full h-full object-cover rounded-xl"
-                autoPlay
-                muted
-                controls
-                playsInline
-              />
+//   return (
+//     <Box
+//       className={`${
+//         index == 4 ? "h-32 sm:h-56" : "h-20 sm:h-44"
+//       } bg-[#f0f0f0] w-full flex justify-center  p-0`}
+//       // className="h-48 sm:h-44 bg-white w-full"
+//       sx={{
+//         borderRadius: "1rem",
+//         // border: "0.3rem solid #A5278F",
+//         color: "#A5278F",
+//       }}
+//     >
+//       {previewJoinReason ? (
+//         <>
+//           {type == "image" ? (
+//             <Image
+//               src={previewJoinReason}
+//               width={256}
+//               height={256}
+//               alt="Image"
+//               className="w-full h-full object-cover rounded-xl"
+//               onClick={() => {
+//                 changeFile();
+//               }}
+//             />
+//           ) : (
+//             <Box className="w-full relative">
+//               <video
+//                 src={previewJoinReason}
+//                 className="w-full h-full object-cover rounded-xl"
+//                 autoPlay
+//                 muted
+//                 controls
+//                 playsInline
+//               />
 
-              <Button
-                className="text-center text-sm  "
-                sx={{
-                  backgroundColor: "#492E91 !important",
-                  color: "white   !important",
-                  py: "0.1rem",
-                  px: "1rem",
-                  borderRadius: "10rem",
-                  position: "absolute",
-                  top: "0.2rem",
-                  right: "0.2rem",
-                }}
-                onClick={() => {
-                  changeFile();
-                }}
-              >
-                คลิกเพื่อแก้ไข
-              </Button>
-            </Box>
-          )}
-        </>
-      ) : (
-        <Box
-          className="h-full w-full  flex flex-col justify-center items-center"
-          onClick={() => {
-            changeFile();
-          }}
-        >
-          {type == "image" ? (
-            <ImageIcon sx={{ fontSize: "2rem" }} />
-          ) : (
-            <OndemandVideoIcon sx={{ fontSize: "2rem" }} />
-          )}
-          <Typography className="text-main text-sm text-center">
-            แนบ{type == "image" ? "รูปภาพ" : "คลิปวิดีโอ"}
-          </Typography>
-        </Box>
-      )}
+//               <Button
+//                 className="text-center text-sm  "
+//                 sx={{
+//                   backgroundColor: "#492E91 !important",
+//                   color: "white   !important",
+//                   py: "0.1rem",
+//                   px: "1rem",
+//                   borderRadius: "10rem",
+//                   position: "absolute",
+//                   top: "0.2rem",
+//                   right: "0.2rem",
+//                 }}
+//                 onClick={() => {
+//                   changeFile();
+//                 }}
+//               >
+//                 คลิกเพื่อแก้ไข
+//               </Button>
+//             </Box>
+//           )}
+//         </>
+//       ) : (
+//         <Box
+//           className="h-full w-full  flex flex-col justify-center items-center"
+//           onClick={() => {
+//             changeFile();
+//           }}
+//         >
+//           {type == "image" ? (
+//             <ImageIcon sx={{ fontSize: "2rem" }} />
+//           ) : (
+//             <OndemandVideoIcon sx={{ fontSize: "2rem" }} />
+//           )}
+//           <Typography className="text-main text-sm text-center">
+//             แนบ{type == "image" ? "รูปภาพ" : "คลิปวิดีโอ"}
+//           </Typography>
+//         </Box>
+//       )}
 
-      <input
-        type="file"
-        id={`upload${index}`}
-        ref={ref}
-        onChange={handleChangeFile}
-        hidden
-        accept={`${type == "image" ? "image" : "video"}/*`}
-      />
-    </Box>
-  );
-};
+//       <input
+//         type="file"
+//         id={`upload${index}`}
+//         ref={ref}
+//         onChange={handleChangeFile}
+//         hidden
+//         accept={`${type == "image" ? "image" : "video"}/*`}
+//       />
+//     </Box>
+//   );
+// };

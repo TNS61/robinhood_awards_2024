@@ -34,7 +34,6 @@ export default function Rewards({
   nextPage,
   page,
   prevPage,
-  handleChangeAward,
 }) {
   const [open, setOpen] = useState(null);
 
@@ -86,9 +85,12 @@ export default function Rewards({
   }, [user.reward]);
 
   return (
-    <Box className="py-5">
+    <Box className="py-10">
       <Box>
         <Box className="flex flex-col gap-3">
+          <Typography>
+            *หมายเหตุ ผู้สมัครสามารถเลือกประเภทของรางวัลได้ไม่เกิน 3 ประเภท
+          </Typography>
           {rewardData.map((item, index) => (
             <RewardsElement
               key={index}
@@ -133,13 +135,13 @@ export default function Rewards({
             />
           </Button>
         </Box>
-        <Image
+        {/* <Image
           src={NOTE.src}
           width={720}
           height={128}
           alt="note"
           className="w-full h-auto mt-3"
-        />
+        /> */}
       </Box>
     </Box>
   );

@@ -31,18 +31,13 @@ export default function Home() {
     profile: "",
     profileFile: null,
     reward: [],
-    joinReason: "",
-    image1Url: "",
-    image2Url: "",
-    image3Url: "",
-    videoUrl: "",
   };
 
   const initSignIn = { memberCode: "", tel: "" };
 
   const [user, setUser] = useState(initUser);
   const [signIn, setSignIn] = useState(initSignIn);
-  const [page, setPage] = useState(4);
+  const [page, setPage] = useState(0);
   const [selectAward, setSelectAward] = useState(null);
 
   const handleSelectAward = (value) => {
@@ -79,10 +74,6 @@ export default function Home() {
     });
   };
 
-  const handleChangeAward = (value) => {
-    console.log(value);
-  };
-
   const registerNow = async (e) => {
     e.preventDefault();
     nextPage();
@@ -95,7 +86,7 @@ export default function Home() {
 
     setSignIn(res.data.data);
     setUser(res.data.data);
-    setPage(8);
+    setPage(7);
   };
   const signInUser = async () => {
     const res = await axios.post(process.env.API_BASE + "/signin", user);
@@ -105,218 +96,376 @@ export default function Home() {
   };
 
   const updateUser = async () => {
-    let tempUser = user;
-
-    if (user?.profileFile) {
-      const formData = new FormData();
-      formData.append("file", user?.profileFile);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.profile = res.data.data.url;
-    }
-
-    if (user.image1File) {
-      const formData = new FormData();
-      formData.append("file", user.image1File);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.image1Url = res.data.data.url;
-    }
-
-    if (user.image2File) {
-      const formData = new FormData();
-      formData.append("file", user.image2File);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.image2Url = res.data.data.url;
-    }
-
-    if (user.image3File) {
-      const formData = new FormData();
-      formData.append("file", user.image3File);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.image3Url = res.data.data.url;
-    }
-
-    if (user.videoFile) {
-      const formData = new FormData();
-      formData.append("file", user.videoFile);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.videoUrl = res.data.data.url;
-    }
-
-    console.log(tempUser);
-
-    const res = await axios.post(process.env.API_BASE + "/update", tempUser);
-    console.log(res.data);
-    if (res.data.status == "error") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-        footer: "<a href>Why do I have this issue?</a>",
-      });
-      return;
-    }
     Swal.fire({
-      icon: "success",
-      title: "บันทึกข้อมูลสำเร็จ",
-      showConfirmButton: false,
-      timer: 1500,
-    }).then(() => {
-      nextPageByPage(8);
+      title: "คุณต้องการบันทึกข้อมูลใช่หรือไม่?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `บันทึก`,
+      denyButtonText: `ไม่บันทึก`,
+    }).then(async (result) => {
+      if (!result.isConfirmed) return;
+
+      let tempUser = { ...user };
+
+      if (user?.reward?.length > 0) {
+        const reward = await Promise.all(
+          user.reward.map(async (item) => {
+            if (item.image1File) {
+              const image1Url = await handleUploadFile(item.image1File);
+
+              if (image1Url) {
+                item.image1Url = image1Url;
+              }
+            }
+
+            if (item.image2File) {
+              const image2Url = await handleUploadFile(item.image2File);
+
+              if (image2Url) {
+                item.image2Url = image2Url;
+              }
+            }
+
+            if (item.image3File) {
+              const image3Url = await handleUploadFile(item.image3File);
+
+              if (image3Url) {
+                item.image3Url = image3Url;
+              }
+            }
+
+            if (item.videoFile) {
+              const videoUrl = await handleUploadFile(item.videoFile);
+
+              if (videoUrl) {
+                item.videoUrl = videoUrl;
+              }
+            }
+
+            return item;
+          })
+        );
+
+        tempUser.reward = reward;
+
+        console.log(tempUser.reward);
+      }
+
+      if (tempUser?.reward?.length > 0) {
+        tempUser.reward.map(async (item) => {
+          const res = await axios.put(process.env.API_BASE + "/update", {
+            ...item,
+            userId: tempUser.userId,
+          });
+
+          if (res.data.status == "error") return;
+        });
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "บันทึกข้อมูลสำเร็จ",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        // nextPage();
+      });
     });
   };
 
   const createUser = async () => {
-    let tempUser = user;
+    Swal.fire({
+      title: "คุณต้องการบันทึกข้อมูลใช่หรือไม่?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `บันทึก`,
+      denyButtonText: `ไม่บันทึก`,
+    }).then(async (result) => {
+      if (!result.isConfirmed) return;
 
-    if (user?.profileFile) {
-      const formData = new FormData();
-      formData.append("file", user?.profileFile);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      let tempUser = { ...user };
+
+      if (user?.profileFile) {
+        const profile = await handleUploadFile(user?.profileFile);
+
+        if (profile) {
+          tempUser.profile = profile;
         }
-      );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.profile = res.data.data.url;
-    }
+      }
 
-    if (user.image1File) {
-      const formData = new FormData();
-      formData.append("file", user.image1File);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      if (user?.reward?.length > 0) {
+        const reward = await Promise.all(
+          user.reward.map(async (item) => {
+            if (item.image1File) {
+              const image1Url = await handleUploadFile(item.image1File);
+
+              if (image1Url) {
+                item.image1Url = image1Url;
+              }
+            }
+
+            if (item.image2File) {
+              const image2Url = await handleUploadFile(item.image2File);
+
+              if (image2Url) {
+                item.image2Url = image2Url;
+              }
+            }
+
+            if (item.image3File) {
+              const image3Url = await handleUploadFile(item.image3File);
+
+              if (image3Url) {
+                item.image3Url = image3Url;
+              }
+            }
+
+            if (item.videoFile) {
+              const videoUrl = await handleUploadFile(item.videoFile);
+
+              if (videoUrl) {
+                item.videoUrl = videoUrl;
+              }
+            }
+
+            return item;
+          })
+        );
+
+        tempUser.reward = reward;
+      }
+
+      const res = await axios.post(process.env.API_BASE + "/create", tempUser);
+
+      if (res.data.status == "error") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong create!",
+          footer: "<a href>Why do I have this issue?</a>",
+        });
+        return;
+      }
+
+      tempUser.userId = res.data.data;
+
+      if (tempUser?.userId) {
+        if (tempUser?.reward?.length > 0) {
+          tempUser.reward.map(async (item) => {
+            const res = await axios.post(process.env.API_BASE + "/createFile", {
+              ...item,
+              userId: tempUser.userId,
+            });
+
+            if (res.data.status == "error") return;
+          });
         }
+      }
+
+      const res_sendEmail = await axios.post(
+        process.env.API_BASE + "/sendEmail",
+        tempUser
       );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.image1Url = res.data.data.url;
-    }
 
-    if (user.image2File) {
-      const formData = new FormData();
-      formData.append("file", user.image2File);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.image2Url = res.data.data.url;
-    }
+      if (res_sendEmail.data.status == "error") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong email!",
+          footer: "<a href>Why do I have this issue?</a>",
+        });
+        return;
+      }
 
-    if (user.image3File) {
-      const formData = new FormData();
-      formData.append("file", user.image3File);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      // console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.image3Url = res.data.data.url;
-    }
+      // tempUser.message = "ขอบคุณที่ร่วมลงทะเบียน Awards 2024 by robinhood";
+      // const res_sendSms = await axios.post(
+      //   process.env.API_BASE + "/sendEmail",
+      //   tempUser
+      // );
 
-    if (user.videoFile) {
-      const formData = new FormData();
-      formData.append("file", user.videoFile);
-      const res = await axios.post(
-        process.env.API_BASE + "/upload/" + user.memberCode,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log(res.data);
-      if (res.data.status == "error") return;
-      tempUser.videoUrl = res.data.data.url;
-    }
+      // if (res_sendSms.data.status == "error") {
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "Oops...",
+      //     text: "Something went wrong!",
+      //     footer: "<a href>Why do I have this issue?</a>",
+      //   });
 
-    console.log(tempUser);
+      //   return;
+      // }
 
-    const res = await axios.post(process.env.API_BASE + "/create", tempUser);
-    console.log(res.data);
-    if (res.data.status == "error") {
       Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-        footer: "<a href>Why do I have this issue?</a>",
+        icon: "success",
+        title: "บันทึกข้อมูลสำเร็จ",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        nextPage();
       });
-      return;
+    });
+
+    // let tempUser = user;
+    // if (user?.profileFile) {
+    //   const formData = new FormData();
+    //   formData.append("file", user?.profileFile);
+    //   const res = await axios.post(
+    //     process.env.API_BASE + "/upload/" + user.memberCode,
+    //     formData,
+    //     {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     }
+    //   );
+    //   // console.log(res.data);
+    //   if (res.data.status == "error") return;
+    //   tempUser.profile = res.data.data.url;
+    // }
+    // if (user?.reward?.length > 0) {
+    //   user.reward.map(async (item) => {
+    //     if (item.image1File) {
+    //       const formData = new FormData();
+    //       formData.append("file", item.image1File);
+    //       const res = await axios.post(
+    //         process.env.API_BASE + "/upload/" + user.memberCode,
+    //         formData,
+    //         {
+    //           headers: {
+    //             "Content-Type": "multipart/form-data",
+    //           },
+    //         }
+    //       );
+    //       // console.log(res.data);
+    //       if (res.data.status == "error") return;
+    //       item.image1Url = res.data.data.url;
+    //     }
+    //     if (item.image2File) {
+    //       const formData = new FormData();
+    //       formData.append("file", item.image2File);
+    //       const res = await axios.post(
+    //         process.env.API_BASE + "/upload/" + user.memberCode,
+    //         formData,
+    //         {
+    //           headers: {
+    //             "Content-Type": "multipart/form-data",
+    //           },
+    //         }
+    //       );
+    //       // console.log(res.data);
+    //       if (res.data.status == "error") return;
+    //       item.image2Url = res.data.data.url;
+    //     }
+    //     if (item.image3File) {
+    //       const formData = new FormData();
+    //       formData.append("file", item.image3File);
+    //       const res = await axios.post(
+    //         process.env.API_BASE + "/upload/" + user.memberCode,
+    //         formData,
+    //         {
+    //           headers: {
+    //             "Content-Type": "multipart/form-data",
+    //           },
+    //         }
+    //       );
+    //       // console.log(res.data);
+    //       if (res.data.status == "error") return;
+    //       item.image3Url = res.data.data.url;
+    //     }
+    //     if (item.videoFile) {
+    //       const formData = new FormData();
+    //       formData.append("file", item.videoFile);
+    //       const res = await axios.post(
+    //         process.env.API_BASE + "/upload/" + user.memberCode,
+    //         formData,
+    //         {
+    //           headers: {
+    //             "Content-Type": "multipart/form-data",
+    //           },
+    //         }
+    //       );
+    //       console.log(res.data);
+    //       if (res.data.status == "error") return;
+    //       item.videoUrl = res.data.data.url;
+    //     }
+    //   });
+    // }
+    // const res = await axios.post(process.env.API_BASE + "/create", tempUser);
+    // if (res.data.status == "error") {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Something went wrong!",
+    //     footer: "<a href>Why do I have this issue?</a>",
+    //   });
+    //   return;
+    // }
+    // tempUser.userId = res.data.data;
+    // if (user?.reward?.length > 0) {
+    //   user.reward.map(async (item) => {
+    //     const res = await axios.post(process.env.API_BASE + "/createFile", {
+    //       ...item,
+    //       userId: user.userId,
+    //     });
+    //     console.log(res.data);
+    //     if (res.data.status == "error") return;
+    //   });
+    // }
+    // const res_sendEmail = await axios.post(
+    //   process.env.API_BASE + "/sendEmail",
+    //   tempUser
+    // );
+    // if (res_sendEmail.data.status == "error") {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Something went wrong!",
+    //     footer: "<a href>Why do I have this issue?</a>",
+    //   });
+    //   return;
+    // }
+    // tempUser.message = "ขอบคุณที่ร่วมลงทะเบียน Awards 2024 by robinhood";
+    // const res_sendSms = await axios.post(
+    //   process.env.API_BASE + "/send/sms",
+    //   tempUser
+    // );
+    // if (res_sendSms.data.status == "error") {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Oops...",
+    //     text: "Something went wrong!",
+    //     footer: "<a href>Why do I have this issue?</a>",
+    //   });
+    //   return;
+    // }
+    // Swal.fire({
+    //   icon: "success",
+    //   title: "บันทึกข้อมูลสำเร็จ",
+    //   showConfirmButton: false,
+    //   timer: 1500,
+    // }).then(() => {
+    //   nextPage();
+    // });
+  };
+
+  const handleUploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const res = await axios.post(
+      process.env.API_BASE + "/upload/" + user.memberCode,
+      formData
+    );
+    if (res?.status == "error") {
+      console.log(res?.message || res?.error);
+      return null;
     }
-    nextPage();
+
+    return res?.data?.data?.url;
+  };
+
+  const getUserByTel = async () => {
+    const res = await axios.post(process.env.API_BASE + "/getbytel" + user.tel);
+
+    console.log(res.data);
   };
 
   const previewProfile = () => {
@@ -410,7 +559,6 @@ export default function Home() {
               nextPage={nextPage}
               page={page}
               prevPage={prevPage}
-              handleChangeAward={handleChangeAward}
             />
           </Box>
         );
@@ -432,7 +580,7 @@ export default function Home() {
 
       case 6:
         return (
-          <Box className="px-3 pt-5">
+          <Box className="px-3 pt-10">
             <Rules
               nextPage={nextPage}
               selectAward={selectAward}
@@ -455,12 +603,16 @@ export default function Home() {
         return (
           <Box className="px-2 pb-10">
             <Works
-              nextPage={nextPage}
               user={user}
+              nextPage={nextPage}
+              page={page}
+              prevPage={prevPage}
+              selectAward={selectAward}
+              handleSelectAward={handleSelectAward}
+              nextPageByPage={nextPageByPage}
               handleChange={handleChange}
               createUser={createUser}
-              selectAward={selectAward}
-              nextPageByPage={nextPageByPage}
+              updateUser={updateUser}
             />
           </Box>
         );
@@ -531,10 +683,21 @@ export default function Home() {
     // check status input and upload file by award all //
   }, [user?.reward]);
 
+  // useEffect(() => {
+  //   if (user?.tel?.length == 10) {
+  //     getUserByTel();
+  //   }
+  // }, [user?.tel]);
+
   useEffect(() => {
     console.log("user changed:", user);
   }, [user]);
   useEffect(() => {
+    if (page == 0) {
+      setUser(initUser);
+      setSignIn(initSignIn);
+    }
+
     if (page == 8) {
       signInUser();
     }

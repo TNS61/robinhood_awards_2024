@@ -7,21 +7,21 @@ import Image from "next/image";
 import { rewardData } from "@/utils/rewardsData";
 
 export default function Rules({ nextPage, selectAward, prevPage }) {
-  const [currentReward, setCurrentReward] = useState(null);
-  useEffect(() => {
-    console.log(selectAward);
-    const data = rewardData.find((item) => item.value == selectAward);
-    console.log(data);
-    setCurrentReward(data);
-  }, [selectAward]);
+  // const [currentReward, setCurrentReward] = useState(null);
+  // useEffect(() => {
+  //   console.log(selectAward);
+  //   const data = rewardData.find((item) => item.value == selectAward);
+  //   console.log(data);
+  //   setCurrentReward(data);
+  // }, [selectAward]);
 
   return (
     <Box className="flex flex-col gap-3 pb-10">
-      <Typography variant="h4">{currentReward?.name || ""}</Typography>
-      {/* <Typography variant="h6">เมนูเด่นเทรนดี้</Typography> */}
+      {/* <Typography variant="h4">{currentReward?.name || ""}</Typography>
+      <Typography variant="h6">เมนูเด่นเทรนดี้</Typography>
       <Typography className="font-light">
         {currentReward?.detail || ""}
-      </Typography>
+      </Typography> */}
       <Typography variant="h6" className="underline">
         เกณฑ์การรับสมัคร
       </Typography>
@@ -90,7 +90,7 @@ export default function Rules({ nextPage, selectAward, prevPage }) {
           className="w-auto h-4"
         />
         <Typography className="font-light">
-          ภาพถ่ายจะต้องมีความละเอียดไม่ต่ำกว่า 3 mb ในรูปแบบไฟล์ .jpg เท่านั้น
+          ภาพถ่ายควรมีความละเอียดไม่ต่ำกว่า 3 mb ในรูปแบบไฟล์ .jpg .png
         </Typography>
       </Box>
       <Box className="flex flex-row  gap-3 items-start">
@@ -102,8 +102,8 @@ export default function Rules({ nextPage, selectAward, prevPage }) {
           className="w-auto h-4"
         />
         <Typography className="font-light">
-          คลิปวิดีโอความยาวไม่เกิน 2 นาที ขนาดไฟล์ไม่เกิด 25 mb ในรูปแบบไฟล์
-          .mp4 เท่านั้น
+          คลิปวิดีโอความยาวไม่เกิน 2 นาที ขนาดไฟล์ไม่เกิด 200 mb ในรูปแบบไฟล์
+          .mp4
         </Typography>
       </Box>
 

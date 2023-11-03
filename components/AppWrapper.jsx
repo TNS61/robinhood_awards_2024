@@ -57,7 +57,7 @@ export default function AppWrapper({ children, page }) {
         >
           <Header page={page} />
           {children}
-          {page == 0 ? (
+          {page == 0 && (
             <Image
               src={CONTACT.src}
               width={720}
@@ -65,16 +65,6 @@ export default function AppWrapper({ children, page }) {
               alt="contact"
               className="w-full sm:w-[80%] h-auto absolute bottom-2 left-[50%] translate-x-[-50%]  duration-200 px-2"
             />
-          ) : page == 8 ? (
-            <Image
-              src={CONTACT.src}
-              width={720}
-              height={256}
-              alt="contact"
-              className="w-full sm:w-[80%] h-auto absolute bottom-2 left-[50%] translate-x-[-50%]  duration-200 px-2"
-            />
-          ) : (
-            ""
           )}
         </Container>
       </Container>
