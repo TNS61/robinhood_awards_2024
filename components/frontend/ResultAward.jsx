@@ -92,7 +92,17 @@ export default function ResultAward({
 
   return (
     <Box className="py-5">
-      <Box>
+      <Box className="flex flex-col gap-5">
+        <Typography
+          sx={{
+            color: "white",
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          ประเภทรางวัลที่ท่านได้ลงสมัคร
+        </Typography>
         {user?.reward.length > 0 ? (
           <Box className="flex flex-col gap-5">
             {user?.reward.map((item, index) => (
@@ -132,10 +142,21 @@ export default function ResultAward({
               Back
             </Button>
           )}
+        </Box>
 
+        <Box className="flex flex-col gap-5">
           <Button className="p-0" onClick={nextPage}>
             <Image
               src={BTN_NEXT.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[60%] sm:w-[40%] h-auto"
+            />
+          </Button>
+          <Button className="p-0" onClick={prevPage}>
+            <Image
+              src={BTN_BACK.src}
               width={256}
               height={128}
               alt="login"

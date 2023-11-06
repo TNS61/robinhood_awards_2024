@@ -20,6 +20,7 @@ import Swal from "sweetalert2";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Image from "next/image";
 import {
+  BTN_BACK,
   BTN_NEXT,
   CHECKED,
   NOTE,
@@ -103,31 +104,20 @@ export default function Rewards({
           ))}
         </Box>
 
-        <Box className="mt-5 w-full flex flex-row gap-5 justify-center">
-          {page == 9 && (
-            <Button
-              sx={{
-                backgroundColor: "white !important",
-                borderRadius: "100px !important",
-                color: "#A5278F !important",
-                fontSize: "1.3rem !important",
-                borderWidth: "1px 1px 0.4rem 1px !important",
-                borderColor: "#A5278F !important",
-                borderStyle: "solid !important",
-                width: "fit-content !important",
-                px: "2rem !important",
-                m: "auto !important",
-              }}
-              className="normal-case font-bold"
-              onClick={prevPage}
-            >
-              Back
-            </Button>
-          )}
-
+        <Box className="flex flex-col gap-5">
           <Button className="p-0" onClick={nextPage}>
             <Image
               src={BTN_NEXT.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[60%] sm:w-[40%] h-auto"
+            />
+          </Button>
+
+          <Button className="p-0" onClick={prevPage}>
+            <Image
+              src={BTN_BACK.src}
               width={256}
               height={128}
               alt="login"

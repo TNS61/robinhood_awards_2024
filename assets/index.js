@@ -23,6 +23,9 @@ import AGREE from "./images/agree.png";
 import NOT_AGREE from "./images/not_agree.png";
 
 import SUCCESS from "./images/success.png";
+import IC_FACEBOOK from "./images/ic_Facebook.png";
+import IC_LINE from "./images/ic_Line.png";
+import IC_TIKTOK from "./images/ic_Tiktok.png";
 
 
 
@@ -46,5 +49,8 @@ export {
   RADIO_CHECKED,
   AGREE,
   NOT_AGREE,
-  SUCCESS
+  SUCCESS,
+  IC_FACEBOOK,
+  IC_LINE,
+  IC_TIKTOK,
 };

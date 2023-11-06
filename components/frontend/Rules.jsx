@@ -22,7 +22,7 @@ export default function Rules({ nextPage, selectAward, prevPage }) {
       <Typography className="font-light">
         {currentReward?.detail || ""}
       </Typography> */}
-      <Typography variant="h6" className="underline">
+      {/* <Typography variant="h6" className="underline">
         เกณฑ์การรับสมัคร
       </Typography>
       <Box className="flex flex-row  gap-3 items-start">
@@ -48,7 +48,7 @@ export default function Rules({ nextPage, selectAward, prevPage }) {
         <Typography className="font-light">
           ค่าเฉลี่ยเรตติ้งบนหน้าแอปมากกว่า 4.0
         </Typography>
-      </Box>
+      </Box> */}
 
       <Typography variant="h6" className="underline">
         ชิ้นงานสำหรับส่งประกวด
@@ -107,7 +107,7 @@ export default function Rules({ nextPage, selectAward, prevPage }) {
         </Typography>
       </Box>
 
-      <Box className="flex justify-center flex-col gap-5 mt-10">
+      <Box className="flex justify-center items-center flex-col gap-5 mt-10">
         <Button className="p-0" onClick={nextPage}>
           <Image
             src={BTN_NEXT.src}

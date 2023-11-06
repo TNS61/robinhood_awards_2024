@@ -73,6 +73,7 @@ export default function Profile({ user, nextPage }) {
           <Box className="grid grid-cols-5">
             <Box className="col-span-2">
               <Typography>รหัสร้านค้า : </Typography>
+     
             </Box>
             <Box className="col-span-3">
               <Typography className="font-light">
@@ -134,7 +135,7 @@ export default function Profile({ user, nextPage }) {
               width: "100%",
             }}
           />
-          <Box className="grid grid-cols-5">
+          {/* <Box className="grid grid-cols-5">
             <Box className="col-span-5">
               <Typography>ช่องทางโซเชียลมีเดีย </Typography>
             </Box>
@@ -143,7 +144,7 @@ export default function Profile({ user, nextPage }) {
                 {user?.socialMedia || ""}
               </Typography>
             </Box>
-          </Box>
+          </Box> */}
           <Divider
             sx={{
               backgroundColor: "white",

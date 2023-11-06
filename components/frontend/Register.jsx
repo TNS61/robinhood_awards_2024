@@ -1,14 +1,16 @@
-import { BTN_BACK, BTN_LOGIN, BTN_NEXT, LOGO } from "@/assets";
+import { BTN_BACK, BTN_LOGIN, BTN_NEXT, IC_FACEBOOK, IC_LINE, IC_TIKTOK, LOGO } from "@/assets";
 import { inputStyle } from "@/utils/inputStyle";
 import {
   Box,
   Button,
+  Icon,
   InputAdornment,
   TextField,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
 import React from "react";
+import Swal from "sweetalert2";
 
 export default function Register({
   handleChange = () => {},
@@ -48,7 +50,7 @@ export default function Register({
                   },
                 }}
               >
-                ชื่อร้านค้า :
+                * ชื่อร้านค้า :
               </InputAdornment>
             ),
           }}
@@ -57,30 +59,36 @@ export default function Register({
           // }}
           required
         />
-        <TextField
-          id="memberCode"
-          name="memberCode"
-          value={user?.memberCode}
-          onChange={handleChange}
-          sx={inputStyle}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment
-                position="start"
-                sx={{
-                  "& .MuiTypography-body1": {
-                    fontSize: "1rem",
-                    color: "#A5278F",
-                  },
-                }}
-              >
-                รหัสร้านค้า :
-              </InputAdornment>
-            ),
-          }}
-          required
-        />
-
+        <Box className="flex flex-col gap-1">
+          <TextField
+            id="memberCode"
+            name="memberCode"
+            fullWidth
+            value={user?.memberCode}
+            onChange={handleChange}
+            sx={inputStyle}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment
+                  position="start"
+                  sx={{
+                    "& .MuiTypography-body1": {
+                      fontSize: "1rem",
+                      color: "#A5278F",
+                    },
+                  }}
+                >
+                  * รหัสร้านค้า :
+                </InputAdornment>
+              ),
+            }}
+            inputProps={{
+              maxLength: 8,
+            }}
+            required
+          />
+          <Typography className="text-xs pl-5">ที่แสดงบนหน้าแอปพลิเคชัน</Typography>
+        </Box>
         <TextField
           id="firstName"
           name="firstName"
@@ -98,7 +106,7 @@ export default function Register({
                   },
                 }}
               >
-                ชื่อ :
+                * ชื่อ :
               </InputAdornment>
             ),
           }}
@@ -121,7 +129,7 @@ export default function Register({
                   },
                 }}
               >
-                นามสกุล :
+                * นามสกุล :
               </InputAdornment>
             ),
           }}
@@ -146,7 +154,7 @@ export default function Register({
                   },
                 }}
               >
-                เบอร์โทร :
+                * เบอร์โทร :
               </InputAdornment>
             ),
           }}
@@ -200,38 +208,90 @@ export default function Register({
                   },
                 }}
               >
-                อีเมล :
+                * อีเมล :
               </InputAdornment>
             ),
           }}
           required
         />
         <Box className="w-full">
-          {/* <Typography className="">โซเชียลมีเดีย</Typography> */}
-          <TextField
-            fullWidth
-            id="socialMedia"
-            name="socialMedia"
-            value={user?.socialMedia}
-            onChange={handleChange}
-            sx={{
-              borderRadius: "1rem",
-              backgroundColor: "white !important",
-              border: "0.3rem solid #A5278F !important",
-              color: "#A5278F !important",
-              "& .MuiOutlinedInput-root": {
-                border: "0rem !important",
-                color: "#A5278F !important",
-              },
-              "& .MuiOutlinedInput-notchedOutline": {
-                border: "0rem !important",
-              },
-            }}
-            type="text"
-            multiline
-            rows={5}
-            placeholder="โซเชียลมีเดีย"
-          />
+          <Typography className="mb-3">
+            ช่องทางโซเชียลมีเดียของร้าน (ถ้ามี)
+          </Typography>
+          <Box className="flex flex-col gap-5">
+            <TextField
+              fullWidth
+              id="facebook"
+              name="facebook"
+              value={user?.facebook}
+              onChange={handleChange}
+              sx={inputStyle}
+              type="text"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment
+                    position="start"
+                    sx={{
+                      "& .MuiTypography-body1": {
+                        fontSize: "1rem",
+                        color: "#A5278F",
+                      },
+                    }}
+                  >
+                    <Image src={IC_FACEBOOK.src} width={45} height={45} alt="facebook" className="p-[0.3rem]"/> :
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              id="line"
+              name="line"
+              fullWidth
+              value={user?.line}
+              onChange={handleChange}
+              sx={inputStyle}
+              type="text"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment
+                    position="start"
+                    sx={{
+                      "& .MuiTypography-body1": {
+                        fontSize: "1rem",
+                        color: "#A5278F",
+                      },
+                    }}
+                  >
+                          <Image src={IC_LINE.src} width={45} height={45} alt="IC_LINE" className="p-[0.3rem]"/> :
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              fullWidth
+              id="tiktok"
+              name="tiktok"
+              value={user?.tiktok}
+              onChange={handleChange}
+              sx={inputStyle}
+              type="text"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment
+                    position="start"
+                    sx={{
+                      "& .MuiTypography-body1": {
+                        fontSize: "1rem",
+                        color: "#A5278F",
+                      },
+                    }}
+                  >
+                           <Image src={IC_TIKTOK.src} width={45} height={45} alt="IC_TIKTOK" className="p-[0.3rem]"/> :
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
         </Box>
 
         <Box className="mt-5 w-full flex flex-col gap-5 justify-center">
@@ -273,8 +333,16 @@ const ProfileUpload = ({ data, handleUploadProfile }) => {
     } else {
       event.target.value = null;
     }
-    console.log(event);
-    handleUploadProfile(event);
+
+    if (event.target.value.size <= 5000000) {
+      handleUploadProfile(event);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "ขนาดไฟล์เกิน 5MB",
+        text: "กรุณาเลือกไฟล์ใหม่",
+      });
+    }
   };
 
   return (

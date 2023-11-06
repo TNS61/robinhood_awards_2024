@@ -7,7 +7,6 @@ const nextConfig = {
   },
   reactStrictMode: true,
   trailingSlash: true,
-  transpilePackages: ["three"],
   images: {
     unoptimized: true,
     remotePatterns: [

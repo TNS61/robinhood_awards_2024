@@ -43,7 +43,7 @@ export default function Works({
   createUser,
   updateUser,
 }) {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(1);
   const [statusButton, setStatusButton] = useState(false);
 
   const handleSelectReward = (value) => {
@@ -95,11 +95,14 @@ export default function Works({
     // if(user.reward[0].)
     if (checkData == 1) {
       if (
-        (user.reward[0].image1File != null || user.reward[0].image1Url != "") &&
-        (user.reward[0].image2File != null || user.reward[0].image2Url != "") &&
-        (user.reward[0].image3File != null || user.reward[0].image3Url != "") &&
-        (user.reward[0].videoFile != null || user.reward[0].videoUrl != "") &&
-        user.reward[0].joinReason != ""
+        (user?.reward[0].image1File != null ||
+          user?.reward[0].image1Url != "") &&
+        (user?.reward[0].image2File != null ||
+          user?.reward[0].image2Url != "") &&
+        (user?.reward[0].image3File != null ||
+          user?.reward[0].image3Url != "") &&
+        (user?.reward[0].videoFile != null || user?.reward[0].videoUrl != "") &&
+        user?.reward[0].joinReason != ""
       ) {
         setStatusButton(true);
       } else {
@@ -108,16 +111,22 @@ export default function Works({
     }
     if (checkData == 2) {
       if (
-        (user.reward[0].image1File != null || user.reward[0].image1Url != "") &&
-        (user.reward[0].image2File != null || user.reward[0].image2Url != "") &&
-        (user.reward[0].image3File != null || user.reward[0].image3Url != "") &&
-        (user.reward[0].videoFile != null || user.reward[0].videoUrl != "") &&
-        user.reward[0].joinReason != "" &&
-        (user.reward[1].image1File != null || user.reward[1].image1Url != "") &&
-        (user.reward[1].image2File != null || user.reward[1].image2Url != "") &&
-        (user.reward[1].image3File != null || user.reward[1].image3Url != "") &&
-        (user.reward[1].videoFile != null || user.reward[1].videoUrl != "") &&
-        user.reward[1].joinReason != ""
+        (user?.reward[0].image1File != null ||
+          user?.reward[0].image1Url != "") &&
+        (user?.reward[0].image2File != null ||
+          user?.reward[0].image2Url != "") &&
+        (user?.reward[0].image3File != null ||
+          user?.reward[0].image3Url != "") &&
+        (user?.reward[0].videoFile != null || user?.reward[0].videoUrl != "") &&
+        user?.reward[0].joinReason != "" &&
+        (user?.reward[1].image1File != null ||
+          user?.reward[1].image1Url != "") &&
+        (user?.reward[1].image2File != null ||
+          user?.reward[1].image2Url != "") &&
+        (user?.reward[1].image3File != null ||
+          user?.reward[1].image3Url != "") &&
+        (user?.reward[1].videoFile != null || user?.reward[1].videoUrl != "") &&
+        user?.reward[1].joinReason != ""
       ) {
         setStatusButton(true);
       } else {
@@ -126,40 +135,59 @@ export default function Works({
     }
     if (checkData == 3) {
       if (
-        (user.reward[0].image1File != null || user.reward[0].image1Url != "") &&
-        (user.reward[0].image2File != null || user.reward[0].image2Url != "") &&
-        (user.reward[0].image3File != null || user.reward[0].image3Url != "") &&
-        (user.reward[0].videoFile != null || user.reward[0].videoUrl != "") &&
-        user.reward[0].joinReason != "" &&
-        (user.reward[1].image1File != null || user.reward[1].image1Url != "") &&
-        (user.reward[1].image2File != null || user.reward[1].image2Url != "") &&
-        (user.reward[1].image3File != null || user.reward[1].image3Url != "") &&
-        (user.reward[1].videoFile != null || user.reward[1].videoUrl != "") &&
-        user.reward[1].joinReason != "" &&
-        (user.reward[2].image1File != null || user.reward[2].image1Url != "") &&
-        (user.reward[2].image2File != null || user.reward[2].image2Url != "") &&
-        (user.reward[2].image3File != null || user.reward[2].image3Url != "") &&
-        (user.reward[2].videoFile != null || user.reward[2].videoUrl != "") &&
-        user.reward[2].joinReason != ""
+        (user?.reward[0].image1File != null ||
+          user?.reward[0].image1Url != "") &&
+        (user?.reward[0].image2File != null ||
+          user?.reward[0].image2Url != "") &&
+        (user?.reward[0].image3File != null ||
+          user?.reward[0].image3Url != "") &&
+        (user?.reward[0].videoFile != null || user?.reward[0].videoUrl != "") &&
+        user?.reward[0].joinReason != "" &&
+        (user?.reward[1].image1File != null ||
+          user?.reward[1].image1Url != "") &&
+        (user?.reward[1].image2File != null ||
+          user?.reward[1].image2Url != "") &&
+        (user?.reward[1].image3File != null ||
+          user?.reward[1].image3Url != "") &&
+        (user?.reward[1].videoFile != null || user?.reward[1].videoUrl != "") &&
+        user?.reward[1].joinReason != "" &&
+        (user?.reward[2].image1File != null ||
+          user?.reward[2].image1Url != "") &&
+        (user?.reward[2].image2File != null ||
+          user?.reward[2].image2Url != "") &&
+        (user?.reward[2].image3File != null ||
+          user?.reward[2].image3Url != "") &&
+        (user?.reward[2].videoFile != null || user?.reward[2].videoUrl != "") &&
+        user?.reward[2].joinReason != ""
       ) {
         setStatusButton(true);
       } else {
         setStatusButton(false);
       }
     }
-  }, [user.reward]);
+  }, [user?.reward]);
 
   useEffect(() => {
     console.log(statusButton);
   }, [statusButton]);
 
   useEffect(() => {
-    console.log(user.reward.length);
+    console.log(user?.reward.length);
   }, [user]);
 
   return (
     <Box className="py-10">
-      <Box>
+      <Box className="flex flex-col gap-5">
+        <Typography
+          sx={{
+            color: "white",
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          ประเภทรางวัลที่ท่านได้ลงสมัคร
+        </Typography>
         {user?.reward.length > 0 ? (
           <Box className="flex flex-col gap-3">
             {user?.reward.map((item, index) => (
@@ -200,7 +228,7 @@ export default function Works({
             </Button>
           )}
 
-          {statusButton && (
+          <Box className="flex flex-col gap-5">
             <Button
               className="p-0"
               onClick={!user?.id ? createUser : updateUser}
@@ -213,15 +241,29 @@ export default function Works({
                 className="w-[60%] sm:w-[40%] h-auto"
               />
             </Button>
+            {!user?.id && (
+            <Button className="p-0" onClick={prevPage}>
+              <Image
+                src={BTN_BACK.src}
+                width={256}
+                height={128}
+                alt="login"
+                className="w-[60%] sm:w-[40%] h-auto"
+              />
+            </Button>
           )}
+          </Box>
+
+          {/* <Button className="p-0" onClick={!user?.id ? createUser : updateUser}>
+            <Image
+              src={BTN_NEXT.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[60%] sm:w-[40%] h-auto"
+            />
+          </Button> */}
         </Box>
-        {/* <Image
-          src={NOTE.src}
-          width={720}
-          height={128}
-          alt="note"
-          className="w-full h-auto mt-3"
-        /> */}
       </Box>
     </Box>
   );

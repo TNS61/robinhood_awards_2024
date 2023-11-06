@@ -24,7 +24,11 @@ import {
   RADIO_CHECKED,
 } from "@/assets";
 
-export default function TermAndCondition({ nextPage, nextPageByPage }) {
+export default function TermAndCondition({
+  nextPage,
+  nextPageByPage,
+  prevPage,
+}) {
   const [checked, setChecked] = React.useState(null);
 
   const handleChange = (value) => {
@@ -74,7 +78,10 @@ export default function TermAndCondition({ nextPage, nextPageByPage }) {
       <Box className="py-10 text-center flex flex-col gap-5 justify-center items-center">
         {/* <Button sx={buttonStyle}>dfsdf</Button> */}
 
-        <Box className="flex flex-row gap-3 justify-center" onClick={() => handleChange(0)}>
+        <Box
+          className="flex flex-row gap-3 justify-center"
+          onClick={() => handleChange(0)}
+        >
           <Image
             src={checked === 0 ? RADIO_CHECKED.src : RADIO_CHECK.src}
             width={128}
@@ -119,8 +126,9 @@ export default function TermAndCondition({ nextPage, nextPageByPage }) {
           />
         </Box>
       </Box>
+
       {checked != null && (
-        <Box className="mt-5 w-full flex flex-col gap-4 justify-center">
+        <Box className="mb-5 w-full flex flex-col gap-4 justify-center items-center">
           {checked == 0 ? (
             <Button className="p-0" onClick={nextPage}>
               <Image
@@ -128,7 +136,7 @@ export default function TermAndCondition({ nextPage, nextPageByPage }) {
                 width={256}
                 height={128}
                 alt="login"
-                className="w-[60%] sm:w-[40%] h-auto"
+                className="w-[60%] sm:w-[40%] h-auto object-contain"
               />
             </Button>
           ) : (
@@ -138,12 +146,26 @@ export default function TermAndCondition({ nextPage, nextPageByPage }) {
                 width={256}
                 height={128}
                 alt="login"
-                className="w-[60%] sm:w-[40%] h-auto"
+                className="w-[60%] sm:w-[40%] h-auto object-contain"
               />
             </Button>
           )}
         </Box>
       )}
+      <Box className=" w-full flex flex-col gap-4 justify-center items-center">
+        {" "}
+        {checked != true && (
+          <Button className="p-0" onClick={prevPage}>
+            <Image
+              src={BTN_BACK.src}
+              width={256}
+              height={128}
+              alt="login"
+              className="w-[60%] sm:w-[40%] h-auto object-contain"
+            />
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 }
