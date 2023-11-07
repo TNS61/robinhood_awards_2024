@@ -26,8 +26,8 @@ import SUCCESS from "./images/success.png";
 import IC_FACEBOOK from "./images/ic_Facebook.png";
 import IC_LINE from "./images/ic_Line.png";
 import IC_TIKTOK from "./images/ic_Tiktok.png";
-
-
+import NO_VIDEO from "./images/no_video.png";
+import NO_IMAGE from "./images/no_image.png";
 
 export {
   LOGO,
@@ -53,4 +53,6 @@ export {
   IC_FACEBOOK,
   IC_LINE,
   IC_TIKTOK,
+  NO_VIDEO,
+  NO_IMAGE,
 };

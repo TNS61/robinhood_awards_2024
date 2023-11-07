@@ -17,39 +17,6 @@ export default function Rules({ nextPage, selectAward, prevPage }) {
 
   return (
     <Box className="flex flex-col gap-3 pb-10">
-      {/* <Typography variant="h4">{currentReward?.name || ""}</Typography>
-      <Typography variant="h6">เมนูเด่นเทรนดี้</Typography>
-      <Typography className="font-light">
-        {currentReward?.detail || ""}
-      </Typography> */}
-      {/* <Typography variant="h6" className="underline">
-        เกณฑ์การรับสมัคร
-      </Typography>
-      <Box className="flex flex-row  gap-3 items-start">
-        <Image
-          src={PIN_WHITE.src}
-          width={10}
-          height={10}
-          alt="pin"
-          className="w-auto h-4"
-        />
-        <Typography className="font-light">
-          มีคอนเทนต์ผ่านสื่อโซเชียลมีเดียต่างๆ อย่างน้อยวันละคอนเทนต์
-        </Typography>
-      </Box>
-      <Box className="flex flex-row  gap-3 items-start">
-        <Image
-          src={PIN_WHITE.src}
-          width={10}
-          height={10}
-          alt="pin"
-          className="w-auto h-4"
-        />
-        <Typography className="font-light">
-          ค่าเฉลี่ยเรตติ้งบนหน้าแอปมากกว่า 4.0
-        </Typography>
-      </Box> */}
-
       <Typography variant="h6" className="underline">
         ชิ้นงานสำหรับส่งประกวด
       </Typography>

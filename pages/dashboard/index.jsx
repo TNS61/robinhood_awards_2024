@@ -1,10 +1,24 @@
 import AppWrapperBackEnd from "@/components/AppWrapperBackEnd";
 import { Box, Container, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import GroupIcon from "@mui/icons-material/Group";
 import StarIcon from "@mui/icons-material/Star";
+import axios from "axios";
 
 export default function Dashboard() {
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    const res = await axios.get(process.env.API_BASE + "/users");
+
+    if (res.data.status == "error") return;
+    setUsers(res.data.data);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <AppWrapperBackEnd>
       <Box>
@@ -32,7 +46,7 @@ export default function Dashboard() {
                   fontSize: "2rem",
                 }}
               >
-                0
+                {users?.length || 0}
               </Typography>
             </Box>
             <Typography

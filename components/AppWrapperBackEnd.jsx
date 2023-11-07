@@ -69,7 +69,7 @@ function AppWrapperBackEnd(props) {
       />
       <List>
         {page.map((item, index) => (
-          <ListItem key={item} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton
               onClick={() => {
                 router.push(item.path);
@@ -96,7 +96,7 @@ function AppWrapperBackEnd(props) {
     <Box
       sx={{
         display: "flex",
-        backgroundColor: "#ffffff",
+        backgroundColor: "#F5F5F5",
         height: "100%",
         color: "black",
       }}

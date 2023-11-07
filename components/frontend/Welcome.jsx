@@ -6,7 +6,6 @@ import React from "react";
 export default function Welcome({ nextPageByPage }) {
   return (
     <Box className="pt-5">
-      {" "}
       <Typography
         className="text-center text-white tracking-wider  "
         sx={{

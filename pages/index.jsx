@@ -395,15 +395,6 @@ export default function Home() {
               Math.round((progressEvent.loaded / progressEvent.total) * 100) +
               "%"
           );
-          // Swal.fire({
-          //   title: "กำลังอัพโหลดไฟล์",
-          //   html:
-          //     "Upload Progress:" +
-          //     Math.round(
-          //       (progressEvent.loaded / progressEvent.total) * 100
-          //     ).toString() +
-          //     "%",
-          // });
         },
       }
     );
